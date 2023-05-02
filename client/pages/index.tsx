@@ -1,9 +1,5 @@
-import Register from "./auth/Register";
+import Layout from "./components/Layout";
 
 export default function Home() {
-  return (
-    <>
-      <Register />
-    </>
-  );
+  return <Layout />;
 }
