@@ -10,12 +10,15 @@ import Layout from "@/pages/components/Layout";
 import ButtonSide from "./ButtonSide";
 import Link from "next/link";
 import { Menu } from "@/pages/typings/types";
+import { useRouter } from "next/router";
 
 export default function Menus() {
-  const { fetchData, updateData, menus, locations, ...data } =
+  const { fetchData, updateData, menus, accessToken, locations, ...data } =
     useContext(AppContext);
 
   // const [menus, setMenus] = useState<Menu[] | undefined>();
+
+  const router = useRouter();
 
   const handleSubmit = async (e: any) => {
     // e.preventDefault();
@@ -81,6 +84,10 @@ export default function Menus() {
       }
     }
   }, []);
+
+  if (!accessToken) {
+    router.push("/login");
+  }
 
   return (
     <Layout>

@@ -1,17 +1,21 @@
 import express, { Request, Response } from "express";
 import testRoute from "./routes/testRoute";
+import jwt from "jsonwebtoken";
+import * as dotenv from "dotenv";
 import { pool } from "./db/db";
 import bcrypt from "bcrypt";
 import cors from "cors";
+import { checkAuth } from "./src/auth/auth";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+dotenv.config();
 
 // app.get("/user/:id", testRoute);
 
-app.delete("/deleteMenu", async (req: Request, res: Response) => {
+app.delete("/deleteMenu", checkAuth, async (req: Request, res: Response) => {
   try {
     if (req.method === "DELETE") {
       const id = req.query.id;
@@ -25,7 +29,7 @@ app.delete("/deleteMenu", async (req: Request, res: Response) => {
   }
 });
 
-app.get("/getAllData", async (req: Request, res: Response) => {
+app.get("/getAllData", checkAuth, async (req: Request, res: Response) => {
   try {
     if (req.method === "GET") {
       const menus = (
@@ -54,7 +58,7 @@ app.get("/getAllData", async (req: Request, res: Response) => {
   }
 });
 
-app.post("/menusPost", async (req: Request, res: Response) => {
+app.post("/menusPost", checkAuth, async (req: Request, res: Response) => {
   try {
     if (req.method === "POST") {
       const { name, price } = req.body.menu;
@@ -114,7 +118,17 @@ app.post("/login", async (req: Request, res: Response) => {
   // res.send(result.rows);
 
   if (!isValidPassword) return res.status(401).send("Invalid credentails.");
-  res.send({ user: result.rows[0] });
+
+  const userResult = result.rows[0];
+  const user = {
+    id: userResult.id,
+    name: userResult.name,
+    email: userResult.email,
+  };
+
+  const secretKey = process.env.JWT_SECRET || "";
+  const accessToken = jwt.sign(user, secretKey);
+  res.send({ accessToken });
 });
 
 app.post("/register", async (req: Request, res: Response) => {

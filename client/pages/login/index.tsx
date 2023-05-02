@@ -17,6 +17,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 const Login = () => {
+  const { updateData, ...data } = useContext(AppContext);
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState({ email: "", password: "" });
 
@@ -38,8 +39,11 @@ const Login = () => {
 
       if (response.ok) {
         console.log("user success : ", await response.json());
+        const data = await response.json();
 
-        router.push("/");
+        updateData({ ...data, accessToken: data.accessToken });
+
+        // router.push("/");
       } else {
         setOpen(true);
       }

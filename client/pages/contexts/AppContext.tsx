@@ -14,6 +14,7 @@ interface AppContextType {
   addons: Addon[];
   addonCategories: AddonCategory[];
   locations: Location[];
+  accessToken: string;
   updateData: (value: any) => void;
   fetchData: () => void;
 }
@@ -24,6 +25,7 @@ const defaultContext: AppContextType = {
   addons: [],
   addonCategories: [],
   locations: [],
+  accessToken: "",
   updateData: () => {},
   fetchData: () => {},
 };
@@ -41,7 +43,11 @@ const AppProvider = (props: any) => {
 
   const fetchData = async () =>
     await axios
-      .get(url)
+      .get(url, {
+        headers: {
+          Authorization: `${data.accessToken}`,
+        },
+      })
       .then((res) => {
         const { menus, menuCategories, addons, addonCategories, locations } =
           res.data;
@@ -84,8 +90,8 @@ const AppProvider = (props: any) => {
   // }, []);
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    data.accessToken.length > 0 && fetchData();
+  }, [data.accessToken]);
 
   // const fetchData = async () => {
   //   const response = await fetch(url);
