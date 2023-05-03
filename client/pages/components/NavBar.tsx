@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import LunchDiningIcon from "@mui/icons-material/LunchDining";
 import LocalDiningIcon from "@mui/icons-material/LocalDining";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -23,6 +23,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { AppContext } from "../contexts/AppContext";
 
 const sidebarMenuItems = [
   {
@@ -58,6 +59,8 @@ const sidebarMenuItems = [
 ];
 
 const NavBar = () => {
+  const { accessToken } = useContext(AppContext);
+
   const [open, setOpen] = useState<boolean>(false);
 
   const toggleDrawer =
@@ -140,8 +143,10 @@ const NavBar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {pageTitle ? pageTitle : "Home"}
           </Typography>
-          <Link href={"/login"}>
-            <Button color="inherit">Login</Button>
+          <Link href={`${accessToken ? "/logout" : "/login"}`}>
+            <Button color="inherit">
+              {accessToken ? "Log Out" : "Log In"}
+            </Button>
           </Link>
         </Toolbar>
       </AppBar>

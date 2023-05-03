@@ -17,7 +17,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 const Login = () => {
-  const { updateData, ...data } = useContext(AppContext);
+  const { updateData, accessToken, ...data } = useContext(AppContext);
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState({ email: "", password: "" });
 
@@ -38,12 +38,11 @@ const Login = () => {
       });
 
       if (response.ok) {
-        console.log("user success : ", await response.json());
-        const data = await response.json();
+        // console.log("user success : ", await response.json());
+        const { accessToken } = await response.json();
 
-        updateData({ ...data, accessToken: data.accessToken });
-
-        // router.push("/");
+        // const token = localStorage.setItem("accessToken", accessToken);
+        updateData({ ...data, accessToken });
       } else {
         setOpen(true);
       }
@@ -51,6 +50,12 @@ const Login = () => {
       console.log("Error here: ", err);
     }
   };
+
+  useEffect(() => {
+    if (accessToken) {
+      router.push("/");
+    }
+  }, [accessToken]);
 
   const handleClose = (
     event: React.SyntheticEvent | Event,
@@ -76,64 +81,62 @@ const Login = () => {
   );
 
   return (
-    <Layout>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        message="Please enter email and password"
+        action={action}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      />
       <Box
         sx={{
           display: "flex",
-          justifyContent: "center",
+          flexDirection: "column",
+          maxWidth: 400,
+          minWidth: 400,
+          mt: 5,
         }}
       >
-        <Snackbar
-          open={open}
-          autoHideDuration={3000}
-          onClose={handleClose}
-          message="Please enter email and password"
-          action={action}
-          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        <TextField
+          label="Email"
+          variant="outlined"
+          sx={{ mb: 2, outline: "none" }}
+          onChange={(evt) => setUser({ ...user, email: evt.target.value })}
+        />
+        <TextField
+          label="Password"
+          variant="outlined"
+          type="password"
+          sx={{ mb: 2 }}
+          onChange={(evt) => setUser({ ...user, password: evt.target.value })}
         />
         <Box
           sx={{
             display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             flexDirection: "column",
-            maxWidth: 400,
-            minWidth: 400,
             mt: 5,
           }}
         >
-          <TextField
-            label="Email"
-            variant="outlined"
-            sx={{ mb: 2, outline: "none" }}
-            onChange={(evt) => setUser({ ...user, email: evt.target.value })}
-          />
-          <TextField
-            label="Password"
-            variant="outlined"
-            type="password"
-            sx={{ mb: 2 }}
-            onChange={(evt) => setUser({ ...user, password: evt.target.value })}
-          />
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-              mt: 5,
-            }}
-          >
-            <Button variant="outlined" onClick={SignIn}>
-              Log in
-            </Button>
-            <Link href={"/register"}>
-              <Typography variant="body1" sx={{ mt: 2 }}>
-                Register
-              </Typography>
-            </Link>
-          </Box>
+          <Button variant="outlined" onClick={SignIn}>
+            Log in
+          </Button>
+          <Link href={"/register"}>
+            <Typography variant="body1" sx={{ mt: 2 }}>
+              Register
+            </Typography>
+          </Link>
         </Box>
       </Box>
-    </Layout>
+    </Box>
   );
 };
 

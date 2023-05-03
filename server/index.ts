@@ -15,7 +15,7 @@ dotenv.config();
 
 // app.get("/user/:id", testRoute);
 
-app.delete("/deleteMenu", checkAuth, async (req: Request, res: Response) => {
+app.delete("/deleteMenu", async (req: Request, res: Response) => {
   try {
     if (req.method === "DELETE") {
       const id = req.query.id;
@@ -29,7 +29,7 @@ app.delete("/deleteMenu", checkAuth, async (req: Request, res: Response) => {
   }
 });
 
-app.get("/getAllData", checkAuth, async (req: Request, res: Response) => {
+app.get("/getAllData", async (req: Request, res: Response) => {
   try {
     if (req.method === "GET") {
       const menus = (
@@ -58,7 +58,7 @@ app.get("/getAllData", checkAuth, async (req: Request, res: Response) => {
   }
 });
 
-app.post("/menusPost", checkAuth, async (req: Request, res: Response) => {
+app.post("/menusPost", async (req: Request, res: Response) => {
   try {
     if (req.method === "POST") {
       const { name, price } = req.body.menu;

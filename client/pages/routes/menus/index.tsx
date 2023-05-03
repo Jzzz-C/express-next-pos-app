@@ -13,7 +13,7 @@ import { Menu } from "@/pages/typings/types";
 import { useRouter } from "next/router";
 
 export default function Menus() {
-  const { fetchData, updateData, menus, accessToken, locations, ...data } =
+  const { fetchData, updateData, menus, locations, ...data } =
     useContext(AppContext);
 
   // const [menus, setMenus] = useState<Menu[] | undefined>();
@@ -84,10 +84,6 @@ export default function Menus() {
       }
     }
   }, []);
-
-  if (!accessToken) {
-    router.push("/login");
-  }
 
   return (
     <Layout>

@@ -19,7 +19,7 @@ interface AppContextType {
   fetchData: () => void;
 }
 
-const defaultContext: AppContextType = {
+export const defaultContext: AppContextType = {
   menus: [],
   menuCategories: [],
   addons: [],
@@ -43,11 +43,7 @@ const AppProvider = (props: any) => {
 
   const fetchData = async () =>
     await axios
-      .get(url, {
-        headers: {
-          Authorization: `${data.accessToken}`,
-        },
-      })
+      .get(url)
       .then((res) => {
         const { menus, menuCategories, addons, addonCategories, locations } =
           res.data;
@@ -89,8 +85,18 @@ const AppProvider = (props: any) => {
   //   }
   // }, []);
 
+  // const accessToken = localStorage.getItem("accessToken");
+
+  // useEffect(() => {
+  //   if (accessToken) {
+  //     fetchData();
+  //   }
+  // }, [accessToken]);
+
   useEffect(() => {
-    data.accessToken.length > 0 && fetchData();
+    if (data.accessToken) {
+      fetchData();
+    }
   }, [data.accessToken]);
 
   // const fetchData = async () => {

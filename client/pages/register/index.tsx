@@ -59,70 +59,68 @@ const Register = () => {
   );
 
   return (
-    <Layout>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        message="Please enter email and password"
+        action={action}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      />
       <Box
         sx={{
           display: "flex",
-          justifyContent: "center",
+          flexDirection: "column",
+          maxWidth: 400,
+          minWidth: 400,
+          mt: 5,
         }}
       >
-        <Snackbar
-          open={open}
-          autoHideDuration={3000}
-          onClose={handleClose}
-          message="Please enter email and password"
-          action={action}
-          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        <TextField
+          label="Name"
+          variant="outlined"
+          sx={{ mb: 2 }}
+          onChange={(evt) => setUser({ ...user, name: evt.target.value })}
+        />
+        <TextField
+          label="Email"
+          variant="outlined"
+          sx={{ mb: 2 }}
+          onChange={(evt) => setUser({ ...user, email: evt.target.value })}
+        />
+        <TextField
+          label="Password"
+          variant="outlined"
+          type="password"
+          sx={{ mb: 2 }}
+          onChange={(evt) => setUser({ ...user, password: evt.target.value })}
         />
         <Box
           sx={{
             display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             flexDirection: "column",
-            maxWidth: 400,
-            minWidth: 400,
             mt: 5,
           }}
         >
-          <TextField
-            label="Name"
-            variant="outlined"
-            sx={{ mb: 2 }}
-            onChange={(evt) => setUser({ ...user, name: evt.target.value })}
-          />
-          <TextField
-            label="Email"
-            variant="outlined"
-            sx={{ mb: 2 }}
-            onChange={(evt) => setUser({ ...user, email: evt.target.value })}
-          />
-          <TextField
-            label="Password"
-            variant="outlined"
-            type="password"
-            sx={{ mb: 2 }}
-            onChange={(evt) => setUser({ ...user, password: evt.target.value })}
-          />
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-              mt: 5,
-            }}
-          >
-            <Button variant="outlined" onClick={Register}>
-              Register
-            </Button>
-            <Link href={"/login"}>
-              <Typography variant="body1" sx={{ mt: 2 }}>
-                Login
-              </Typography>
-            </Link>
-          </Box>
+          <Button variant="outlined" onClick={Register}>
+            Register
+          </Button>
+          <Link href={"/login"}>
+            <Typography variant="body1" sx={{ mt: 2 }}>
+              Login
+            </Typography>
+          </Link>
         </Box>
       </Box>
-    </Layout>
+    </Box>
   );
 };
 
