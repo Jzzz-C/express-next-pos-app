@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import LocalMallIcon from "@mui/icons-material/LocalMall";
 import { useContext, useState } from "react";
 import LunchDiningIcon from "@mui/icons-material/LunchDining";
 import LocalDiningIcon from "@mui/icons-material/LocalDining";
@@ -26,32 +27,33 @@ import { useRouter } from "next/router";
 import { AppContext } from "../contexts/AppContext";
 
 const sidebarMenuItems = [
+  { id: 1, label: "Orders", icon: <LocalMallIcon />, route: "/routes/orders" },
   {
-    id: 1,
+    id: 2,
     label: "Menus",
     icon: <LocalDiningIcon />,
     route: "/routes/menus",
   },
   {
-    id: 2,
+    id: 3,
     label: "Menu Categories",
     icon: <CategoryIcon />,
     route: "/routes/menu-categories",
   },
   {
-    id: 3,
+    id: 4,
     label: "Addon",
     icon: <LunchDiningIcon />,
     route: "/routes/addon",
   },
   {
-    id: 4,
+    id: 5,
     label: "Addon Categories",
     icon: <ClassIcon />,
     route: "/routes/addon-categories",
   },
   {
-    id: 5,
+    id: 6,
     label: "Settings",
     icon: <SettingsIcon />,
     route: "/routes/setting",
@@ -84,7 +86,7 @@ const NavBar = () => {
         onKeyDown={toggleDrawer(false)}
       >
         <List>
-          {sidebarMenuItems.slice(0, 4).map((item) => (
+          {sidebarMenuItems.slice(0, 5).map((item) => (
             <Link
               key={item.id}
               href={item.route}
