@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import Layout from "../components/Layout";
 import { AppContext, defaultContext } from "../contexts/AppContext";
+import NavBar from "../components/NavBar";
 
 const Logout = () => {
   const { updateData } = useContext(AppContext);
@@ -11,9 +12,7 @@ const Logout = () => {
 
   return (
     <div>
-      <Layout>
-        <h1 className="text-lg">YOU ARE LOGOUT NOW!</h1>
-      </Layout>
+      <NavBar />
     </div>
   );
 };
