@@ -9,6 +9,7 @@ import LocalMallIcon from "@mui/icons-material/LocalMall";
 import { useContext, useState } from "react";
 import LunchDiningIcon from "@mui/icons-material/LunchDining";
 import LocalDiningIcon from "@mui/icons-material/LocalDining";
+import FastfoodIcon from "@mui/icons-material/Fastfood";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ClassIcon from "@mui/icons-material/Class";
 import CategoryIcon from "@mui/icons-material/Category";
@@ -36,24 +37,30 @@ const sidebarMenuItems = [
   },
   {
     id: 3,
+    label: "Create A New Menu",
+    icon: <FastfoodIcon />,
+    route: "/routes/create-menu",
+  },
+  {
+    id: 4,
     label: "Menu Categories",
     icon: <CategoryIcon />,
     route: "/routes/menu-categories",
   },
   {
-    id: 4,
+    id: 5,
     label: "Addon",
     icon: <LunchDiningIcon />,
     route: "/routes/addon",
   },
   {
-    id: 5,
+    id: 6,
     label: "Addon Categories",
     icon: <ClassIcon />,
     route: "/routes/addon-categories",
   },
   {
-    id: 6,
+    id: 7,
     label: "Settings",
     icon: <SettingsIcon />,
     route: "/routes/setting",
@@ -86,7 +93,7 @@ const NavBar = () => {
         onKeyDown={toggleDrawer(false)}
       >
         <List>
-          {sidebarMenuItems.slice(0, 5).map((item) => (
+          {sidebarMenuItems.slice(0, 6).map((item) => (
             <Link
               key={item.id}
               href={item.route}
