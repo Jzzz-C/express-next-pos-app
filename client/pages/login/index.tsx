@@ -18,7 +18,7 @@ import { useRouter } from "next/router";
 
 const Login = () => {
   const { updateData, accessToken, ...data } = useContext(AppContext);
-  const [open, setOpen] = useState(false);
+
   const [user, setUser] = useState({ email: "", password: "" });
 
   const router = useRouter();
@@ -27,9 +27,9 @@ const Login = () => {
 
   const url = `${apiBaseUrl}/login`;
 
-  const SignIn = async () => {
+  const signIn = async () => {
     const isValid = user.email.length > 0 && user.password.length > 0;
-    if (!isValid) return setOpen(true);
+    if (!isValid) console.log("Something was wrong....");
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -44,7 +44,7 @@ const Login = () => {
         // const token = localStorage.setItem("accessToken", accessToken);
         updateData({ ...data, accessToken });
       } else {
-        setOpen(true);
+        console.log("first");
       }
     } catch (err) {
       console.log("Error here: ", err);
@@ -57,86 +57,64 @@ const Login = () => {
     }
   }, [accessToken]);
 
-  const handleClose = (
-    event: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
-
-  const action = (
-    <>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </>
-  );
-
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
-      <Snackbar
-        open={open}
-        autoHideDuration={3000}
-        onClose={handleClose}
-        message="Please enter email and password"
-        action={action}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-      />
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          maxWidth: 400,
-          minWidth: 400,
-          mt: 5,
-        }}
-      >
-        <TextField
-          label="Email"
-          variant="outlined"
-          sx={{ mb: 2, outline: "none" }}
-          onChange={(evt) => setUser({ ...user, email: evt.target.value })}
-        />
-        <TextField
-          label="Password"
-          variant="outlined"
-          type="password"
-          sx={{ mb: 2 }}
-          onChange={(evt) => setUser({ ...user, password: evt.target.value })}
-        />
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "column",
-            mt: 5,
-          }}
-        >
-          <Button variant="outlined" onClick={SignIn}>
-            Log in
-          </Button>
-          <Link href={"/register"}>
-            <Typography variant="body1" sx={{ mt: 2 }}>
-              Register
-            </Typography>
-          </Link>
-        </Box>
-      </Box>
-    </Box>
+    <div className="w-full max-w-xl m-auto mt-36 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <form className="p-20">
+        <div className="mb-6">
+          <label
+            htmlFor="email"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Your email
+          </label>
+          <input
+            type="email"
+            id="email"
+            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            placeholder="name@flowbite.com"
+            required
+            onChange={(evt) => setUser({ ...user, password: evt.target.value })}
+          />
+        </div>
+        <div className="mb-6">
+          <label
+            htmlFor="password"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Your password
+          </label>
+          <input
+            type="password"
+            id="password"
+            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            required
+            onChange={(evt) => setUser({ ...user, email: evt.target.value })}
+          />
+        </div>
+        <div className="flex items-start mb-6">
+          <label
+            htmlFor="terms"
+            className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+          >
+            You don't have any account?{"  "}
+            <Link
+              href={"/register"}
+              className="text-blue-600 cursor-pointer dark:text-blue-500"
+            >
+              Please Sign Up
+            </Link>
+          </label>
+        </div>
+        <div className="flex float-right">
+          <button
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            onClick={signIn}
+          >
+            Sign In
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 
