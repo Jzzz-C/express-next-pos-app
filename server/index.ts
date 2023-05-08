@@ -8,6 +8,7 @@ import { checkAuth } from "./src/auth/auth";
 import deleteMenu from "./routes/deleteMenu";
 import getAllData from "./routes/getAllData";
 import menusPost from "./routes/menusPost";
+import menuCategories from "./routes/menuCategories";
 import login from "./routes/login";
 import register from "./routes/register";
 
@@ -22,6 +23,8 @@ app.use("/deleteMenu", deleteMenu);
 app.use("/getAllData", getAllData);
 
 app.use("/menusPost", menusPost);
+
+app.use("/menuCategories", menuCategories);
 
 app.use("/login", login);
 

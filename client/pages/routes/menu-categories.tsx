@@ -8,16 +8,22 @@ import { AppContext } from "../contexts/AppContext";
 import MultipleSelect from "../components/MultiSelect";
 
 export default function MenuCategories() {
-  const { menuCategories, fetchData } = useContext(AppContext);
+  const { fetchData } = useContext(AppContext);
 
   const [name, setname] = useState("");
 
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
-  const url = `${apiBaseUrl}/menusPost`;
+  const url = `${apiBaseUrl}/menuCategories`;
 
   const handleSubmit = async () => {
-    console.log(name);
+    if (!name) return console.log("This is empty...");
+
+    const res = await axios.post(url, {
+      name,
+    });
+
+    fetchData();
   };
 
   return (
