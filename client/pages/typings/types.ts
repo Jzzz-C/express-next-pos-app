@@ -16,7 +16,10 @@ export interface Menu {
   url: string;
 }
 
-export interface MenuCategory extends CategoryName {}
+export interface MenuCategory {
+  id: number;
+  category_name: string;
+}
 
 export interface Addon {
   addonName: string;
