@@ -1,5 +1,6 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, json } from "express";
 import { pool } from "../db/db";
+import { menuQueries } from "../src/queries/menu.queries";
 
 const router = express.Router();
 export default router;
@@ -8,10 +9,9 @@ router.post("/", async (req: Request, res: Response) => {
   try {
     if (req.method === "POST") {
       const { name, price } = req.body.menu;
-      const text = `INSERT INTO menus_order(name, price) VALUES($1, $2) RETURNING *`;
-      const values = [name, price];
-      const { rows } = await pool.query(text, values);
-      res.send(rows);
+      const result = menuQueries.createMenu({ name, price });
+      console.log(result);
+      res.send("ok");
     }
   } catch (err) {
     console.log("error", err);
