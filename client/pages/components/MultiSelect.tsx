@@ -26,7 +26,10 @@ function getStyles(name: string, personName: string[], theme: Theme) {
   };
 }
 
-export default function MultipleSelect({ menuAndAddonCategories: names }: any) {
+export default function MultipleSelect({
+  title,
+  menuAndAddonCategories: names,
+}: any) {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState<string[]>([]);
 
@@ -43,14 +46,14 @@ export default function MultipleSelect({ menuAndAddonCategories: names }: any) {
   return (
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-name-label">Name</InputLabel>
+        <InputLabel id="demo-multiple-name-label">{title && title}</InputLabel>
         <Select
           labelId="demo-multiple-name-label"
           id="demo-multiple-name"
           multiple
           value={personName}
           onChange={handleChange}
-          input={<OutlinedInput label="Name" />}
+          input={<OutlinedInput label={title && title} />}
           MenuProps={MenuProps}
         >
           {names &&

@@ -57,7 +57,10 @@ export default function MenuCategories() {
           textAlign: "center",
         }}
       >
-        <MultipleSelect menuAndAddonCategories={addonCategories} />
+        <MultipleSelect
+          title="Addon Categories"
+          menuAndAddonCategories={addonCategories}
+        />
       </Box>
     </Layout>
   );
