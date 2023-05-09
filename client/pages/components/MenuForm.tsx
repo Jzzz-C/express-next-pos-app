@@ -2,7 +2,7 @@ import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 
 export default function MunuForm() {
   return (
-    <div className="max-w-xl m-auto my-20">
+    <div className="max-w-xl m-auto my-20 border-gray-700">
       <form>
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-12">
