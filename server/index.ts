@@ -10,6 +10,7 @@ import getAllData from "./routes/getAllData";
 import menusPost from "./routes/menusPost";
 import menuCategories from "./routes/menuCategories";
 import addonCategories from "./routes/addonCategories";
+import addon from "./routes/addon";
 import login from "./routes/login";
 import register from "./routes/register";
 
@@ -28,6 +29,8 @@ app.use("/menusPost", menusPost);
 app.use("/menuCategories", menuCategories);
 
 app.use("/addonCategories", addonCategories);
+
+app.use("/addon", addon);
 
 app.use("/login", login);
 

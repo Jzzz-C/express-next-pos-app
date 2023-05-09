@@ -1,40 +1,38 @@
 import axios from "axios";
-import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import Layout from "../components/Layout";
+import { useContext, useState } from "react";
+import { AppContext } from "../contexts/AppContext";
+import MultipleSelect from "../components/MultiSelect";
 
-export default function Addon() {
+export default function MenuCategories() {
+  const { fetchData, addons } = useContext(AppContext);
+
+  const [name, setname] = useState("");
+  const [price, setPrice] = useState<Number>();
+
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
-  const url = `${apiBaseUrl}/menusPost`;
+  const url = `${apiBaseUrl}/addon`;
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const menu = {
-      name: formData.get("name"),
-      prize: formData.get("prize"),
-    };
+  const handleSubmit = async () => {
+    if (!name || !price) return console.log("This is empty...");
 
-    await axios
-      .post(url, {
-        menu,
-      })
-      .then((res) => {
-        console.log(res.data);
-        return res;
-      })
-      .catch((err) => {
-        return err;
-      });
+    const res = await axios.post(url, {
+      name,
+      price,
+    });
+
+    fetchData();
   };
+
+  console.log(addons);
 
   return (
     <Layout>
       <Box
-        component="form"
         sx={{
           maxWidth: "20rem",
           display: "flex",
@@ -43,7 +41,6 @@ export default function Addon() {
           margin: "0 auto",
           marginY: 15,
         }}
-        onSubmit={handleSubmit}
       >
         <TextField
           id="standard-basic"
@@ -52,21 +49,31 @@ export default function Addon() {
           sx={{ mb: 1 }}
           color="primary"
           focused
-          name="name"
+          onChange={(e) => setname(e.target.value)}
         />
+
         <TextField
-          id="standard-basic"
-          label="Prize"
           type="number"
+          id="standard-basic"
+          label="Price"
           variant="standard"
-          sx={{ mb: 2 }}
+          sx={{ mb: 1 }}
           color="primary"
           focused
-          name="prize"
+          onChange={(e) => setPrice(Number(e.target.value))}
         />
-        <Button type="submit" variant="outlined">
-          Create Menus
+
+        <Button onClick={handleSubmit} variant="outlined">
+          Create Addon
         </Button>
+      </Box>
+
+      <Box
+        sx={{
+          textAlign: "center",
+        }}
+      >
+        <MultipleSelect menuAndAddonCategories={addons} />
       </Box>
     </Layout>
   );
