@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import {
   Alert,
   Box,
@@ -41,7 +42,7 @@ const Register = () => {
   };
 
   return (
-    <div className="w-full max-w-xl m-auto mt-36 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="w-full max-w-xl m-auto mt-36 bg-slate-100 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <form className="p-20">
         <div className="mb-6">
           <label

@@ -1,10 +1,11 @@
 import React from "react";
 import Layout from "../components/Layout";
+import MenuForm from "../components/MenuForm";
 
 const CreateNewMenu = () => {
   return (
     <Layout>
-      <div>CreateNewMenu</div>
+      <MenuForm />
     </Layout>
   );
 };
