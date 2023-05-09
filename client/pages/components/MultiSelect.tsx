@@ -5,7 +5,6 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { AppContext } from "../contexts/AppContext";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -27,10 +26,9 @@ function getStyles(name: string, personName: string[], theme: Theme) {
   };
 }
 
-export default function MultipleSelect() {
+export default function MultipleSelect({ menuAndAddonCategories: names }: any) {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState<string[]>([]);
-  const { menuCategories: names } = React.useContext(AppContext);
 
   const handleChange = (event: SelectChangeEvent<typeof personName>) => {
     const {
@@ -56,7 +54,7 @@ export default function MultipleSelect() {
           MenuProps={MenuProps}
         >
           {names &&
-            names.map((name) => (
+            names.map((name: any) => (
               <MenuItem
                 key={name.id}
                 value={name.category_name}

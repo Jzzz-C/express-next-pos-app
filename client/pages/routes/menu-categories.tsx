@@ -8,7 +8,7 @@ import { AppContext } from "../contexts/AppContext";
 import MultipleSelect from "../components/MultiSelect";
 
 export default function MenuCategories() {
-  const { fetchData } = useContext(AppContext);
+  const { fetchData, menuCategories } = useContext(AppContext);
 
   const [name, setname] = useState("");
 
@@ -57,7 +57,7 @@ export default function MenuCategories() {
           textAlign: "center",
         }}
       >
-        <MultipleSelect />
+        <MultipleSelect menuAndAddonCategories={menuCategories} />
       </Box>
     </Layout>
   );

@@ -7,7 +7,7 @@ export default router;
 router.post("/", async (req: Request, res: Response) => {
   try {
     const { name: category_name } = req.body;
-    const text = `INSERT INTO menu_categories(category_name) VALUES($1) RETURNING *`;
+    const text = `INSERT INTO addon_categories(category_name) VALUES($1) RETURNING *`;
     const values = [category_name];
     const { rows } = await pool.query(text, values);
     res.send(rows);
