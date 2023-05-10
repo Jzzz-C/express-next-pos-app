@@ -6,6 +6,7 @@ import Layout from "../components/Layout";
 import { useContext, useState } from "react";
 import { AppContext } from "../contexts/AppContext";
 import MultipleSelect from "../components/MultiSelect";
+import AddonSelect from "../components/AddonSelect";
 
 export default function MenuCategories() {
   const { fetchData, addons } = useContext(AppContext);
@@ -27,8 +28,6 @@ export default function MenuCategories() {
 
     fetchData();
   };
-
-  console.log(addons);
 
   return (
     <Layout>
@@ -73,7 +72,7 @@ export default function MenuCategories() {
           textAlign: "center",
         }}
       >
-        <MultipleSelect menuAndAddonCategories={addons} />
+        <AddonSelect addons={addons} />
       </Box>
     </Layout>
   );

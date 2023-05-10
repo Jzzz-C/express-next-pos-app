@@ -22,10 +22,8 @@ export interface MenuCategory {
 }
 
 export interface Addon {
-  addonName: string;
-  prize: number;
-  isAvailable: boolean;
-  addonCategoriesIds: string[];
+  addon_name: string;
+  price: number;
 }
 
 export interface AddonCategory extends CategoryName {

@@ -2,14 +2,16 @@ import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { useContext } from "react";
 import { AppContext } from "../contexts/AppContext";
 import MultipleSelect from "./MultiSelect";
+import AddonSelect from "./AddonSelect";
 
 export default function MunuForm() {
   const { menuCategories, addonCategories, addons } = useContext(AppContext);
 
   return (
-    <div className="max-w-xl m-auto my-24">
+    <div className="w-full max-w-3xl px-28 py-7 m-auto mt-12  bg-slate-100 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <form>
-        <div className="mt-10 space-y-10">
+        <p className="font-semibold text-xl">Create A New Menu</p>
+        <div className="mt-10 space-y-4">
           <div className="max-w-md sm:col-span-4">
             <label
               htmlFor="location"
@@ -28,14 +30,14 @@ export default function MunuForm() {
             </div>
           </div>
 
-          <div className="flex justify-around">
-            <div className="max-w-sm space-y-5">
+          <div className="flex justify-normal">
+            <div className="max-w-sm space-y-5 mr-14">
               <div className="sm:col-span-3">
                 <label
                   htmlFor="name"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Menu Name and id
+                  Menu Name
                 </label>
                 <div className="mt-2">
                   <input
@@ -83,7 +85,7 @@ export default function MunuForm() {
                 </label>
               </div>
             </div>
-            <div>
+            <div className="space-y-3">
               <MultipleSelect
                 title="Menu Categories"
                 menuAndAddonCategories={menuCategories}
@@ -92,6 +94,8 @@ export default function MunuForm() {
                 title="Addon Categories"
                 menuAndAddonCategories={addonCategories}
               />
+
+              <AddonSelect addons={addons} />
             </div>
           </div>
 
@@ -111,6 +115,14 @@ export default function MunuForm() {
                 defaultValue={""}
               />
             </div>
+          </div>
+          <div className="text-right">
+            <button
+              type="button"
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            >
+              Default
+            </button>
           </div>
         </div>
       </form>

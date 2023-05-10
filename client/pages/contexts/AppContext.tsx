@@ -32,7 +32,7 @@ export const defaultContext: AppContextType = {
 
 export const AppContext = createContext<AppContextType>(defaultContext);
 
-const AppProvider = (props: any) => {
+const AppProvider = ({ children }: any) => {
   const [data, updateData] = useState(defaultContext);
 
   console.log("data is", data);
@@ -114,7 +114,7 @@ const AppProvider = (props: any) => {
 
   return (
     <AppContext.Provider value={{ ...data, updateData, fetchData }}>
-      {props.children}
+      {children}
     </AppContext.Provider>
   );
 };
