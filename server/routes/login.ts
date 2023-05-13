@@ -7,7 +7,7 @@ const router = express.Router();
 export default router;
 
 router.post("/", async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+  const { email, password } = req.body.user;
   // input, request, data validation
   const isValid = email && email.length > 0 && password && password.length > 0;
   // if (!isValid) return res.send({ error: "Name and password are required." });

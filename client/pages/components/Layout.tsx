@@ -1,34 +1,27 @@
 import { useRouter } from "next/router";
 import NavBar from "./NavBar";
-import { useContext, useEffect } from "react";
-import { AppContext } from "../contexts/AppContext";
-import { Button } from "@mui/material";
-import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface Props {
   children: string | JSX.Element | JSX.Element[];
 }
 
 const Layout = ({ children }: any) => {
-  const { accessToken } = useContext(AppContext);
-
   const router = useRouter();
 
-  useEffect(() => {
-    //   const accessToken = localStorage.getItem("accessToken");
+  const [accessToken, setAccessToken] = useState<String | null>(null);
 
-    if (!accessToken) {
-      router.push("/login");
-    }
-  }, [accessToken]);
+  useEffect(() => {
+    setAccessToken(localStorage.getItem("accessToken"));
+
+    console.log(accessToken);
+
+    // if (!accessToken) {
+    //   router.push("/login");
+    // }
+  }, [accessToken, router]);
 
   return (
-    // <div>
-    //   <div>
-    //     <NavBar />
-    //     {children}
-    //   </div>
-    // </div>
     <>
       {accessToken ? (
         <div>

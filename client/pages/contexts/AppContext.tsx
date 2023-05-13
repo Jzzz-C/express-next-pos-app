@@ -35,6 +35,8 @@ export const AppContext = createContext<AppContextType>(defaultContext);
 const AppProvider = ({ children }: any) => {
   const [data, updateData] = useState(defaultContext);
 
+  const [accessToken, setAccessToken] = useState<String | null>(null);
+
   console.log("data is", data);
 
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
@@ -94,10 +96,12 @@ const AppProvider = ({ children }: any) => {
   // }, [accessToken]);
 
   useEffect(() => {
-    if (data.accessToken) {
+    setAccessToken(localStorage.getItem("accessToken"));
+
+    if (accessToken && accessToken.length > 0) {
       fetchData();
     }
-  }, [data.accessToken]);
+  }, [accessToken]);
 
   // const fetchData = async () => {
   //   const response = await fetch(url);

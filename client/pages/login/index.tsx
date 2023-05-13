@@ -15,11 +15,13 @@ import { AppContext } from "../contexts/AppContext";
 import Layout from "../components/Layout";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 const Login = () => {
-  const { updateData, accessToken, ...data } = useContext(AppContext);
+  const { updateData, ...data } = useContext(AppContext);
 
   const [user, setUser] = useState({ email: "", password: "" });
+  const [accessToken, setAccessToken] = useState<String | null>(null);
 
   const router = useRouter();
 
@@ -31,21 +33,11 @@ const Login = () => {
     const isValid = user.email.length > 0 && user.password.length > 0;
     if (!isValid) console.log("Something was wrong....");
     try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user),
-      });
+      const res = await axios.post(url, { user });
+      const { accessToken } = res.data;
 
-      if (response.ok) {
-        // console.log("user success : ", await response.json());
-        const { accessToken } = await response.json();
-
-        // const token = localStorage.setItem("accessToken", accessToken);
-        updateData({ ...data, accessToken });
-      } else {
-        console.log("first");
-      }
+      localStorage.setItem("accessToken", accessToken);
+      setAccessToken(localStorage.getItem("accessToken"));
     } catch (err) {
       console.log("Error here: ", err);
     }
@@ -55,7 +47,7 @@ const Login = () => {
     if (accessToken) {
       router.push("/");
     }
-  }, [accessToken]);
+  }, [accessToken, router]);
 
   return (
     <div className="w-full max-w-xl m-auto mt-36 bg-slate-100 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
