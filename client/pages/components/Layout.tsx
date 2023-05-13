@@ -9,16 +9,11 @@ interface Props {
 const Layout = ({ children }: any) => {
   const router = useRouter();
 
-  const [accessToken, setAccessToken] = useState<String | null>(null);
+  const accessToken =
+    typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
 
   useEffect(() => {
-    setAccessToken(localStorage.getItem("accessToken"));
-
-    console.log(accessToken);
-
-    // if (!accessToken) {
-    //   router.push("/login");
-    // }
+    if (!accessToken) router.push("/login");
   }, [accessToken, router]);
 
   return (

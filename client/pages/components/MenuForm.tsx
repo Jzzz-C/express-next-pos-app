@@ -8,7 +8,7 @@ export default function MunuForm() {
   const { menuCategories, addonCategories, addons } = useContext(AppContext);
 
   return (
-    <div className="w-full max-w-3xl px-28 py-7 m-auto mt-12  bg-slate-100 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="w-full max-w-3xl px-28 py-7 m-auto mt-7  bg-slate-100 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <form>
         <p className="font-semibold text-xl">Create A New Menu</p>
         <div className="mt-10 space-y-4">

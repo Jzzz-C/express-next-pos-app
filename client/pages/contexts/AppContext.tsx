@@ -35,7 +35,7 @@ export const AppContext = createContext<AppContextType>(defaultContext);
 const AppProvider = ({ children }: any) => {
   const [data, updateData] = useState(defaultContext);
 
-  const [accessToken, setAccessToken] = useState<String | null>(null);
+  // const [accessToken, setAccessToken] = useState<String | null>(null);
 
   console.log("data is", data);
 
@@ -95,12 +95,11 @@ const AppProvider = ({ children }: any) => {
   //   }
   // }, [accessToken]);
 
-  useEffect(() => {
-    setAccessToken(localStorage.getItem("accessToken"));
+  const accessToken =
+    typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
 
-    if (accessToken && accessToken.length > 0) {
-      fetchData();
-    }
+  useEffect(() => {
+    if (accessToken) fetchData();
   }, [accessToken]);
 
   // const fetchData = async () => {

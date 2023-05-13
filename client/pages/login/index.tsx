@@ -21,7 +21,6 @@ const Login = () => {
   const { updateData, ...data } = useContext(AppContext);
 
   const [user, setUser] = useState({ email: "", password: "" });
-  const [accessToken, setAccessToken] = useState<String | null>(null);
 
   const router = useRouter();
 
@@ -37,17 +36,17 @@ const Login = () => {
       const { accessToken } = res.data;
 
       localStorage.setItem("accessToken", accessToken);
-      setAccessToken(localStorage.getItem("accessToken"));
+      if (accessToken) {
+        router.push("/");
+      }
     } catch (err) {
       console.log("Error here: ", err);
     }
   };
 
   useEffect(() => {
-    if (accessToken) {
-      router.push("/");
-    }
-  }, [accessToken, router]);
+    router.prefetch("/");
+  }, [router]);
 
   return (
     <div className="w-full max-w-xl m-auto mt-36 bg-slate-100 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -89,7 +88,7 @@ const Login = () => {
             htmlFor="terms"
             className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
-            You don't have any account?{"   "}
+            You dont have any account?{"   "}
             <Link
               href={"/register"}
               className="text-blue-600 cursor-pointer dark:text-blue-500"
