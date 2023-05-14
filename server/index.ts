@@ -11,6 +11,7 @@ import menusPost from "./routes/menusPost";
 import menuCategories from "./routes/menuCategories";
 import addonCategories from "./routes/addonCategories";
 import addon from "./routes/addon";
+import image from "./routes/image";
 import login from "./routes/login";
 import register from "./routes/register";
 
@@ -31,6 +32,8 @@ app.use("/menuCategories", menuCategories);
 app.use("/addonCategories", addonCategories);
 
 app.use("/addon", addon);
+
+app.use("/image", image);
 
 app.use("/login", login);
 

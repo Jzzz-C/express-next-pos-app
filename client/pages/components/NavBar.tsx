@@ -136,7 +136,7 @@ const NavBar = () => {
   )?.label;
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, position: "sticky" }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
