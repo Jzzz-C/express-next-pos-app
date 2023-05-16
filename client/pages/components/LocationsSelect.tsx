@@ -28,13 +28,10 @@ function getStyles(name: string, personName: string[], theme: Theme) {
   };
 }
 
-export default function LocationsSelect() {
+export default function LocationsSelect({ onStateChange }: any) {
   const { locations } = useContext(AppContext);
   const theme = useTheme();
   const [personName, setPersonName] = React.useState<string[]>([]);
-
-  const [selectedLocations, setSelectedLocations] = useState<String[]>();
-  const [selectedIds, setSelectedIds] = useState<Number[]>();
 
   const handleChange = (event: SelectChangeEvent<typeof personName>) => {
     const {
@@ -45,18 +42,17 @@ export default function LocationsSelect() {
       typeof value === "string" ? value.split(",") : value
     );
 
-    setSelectedLocations(event.target.value as string[]);
+    const selectedNames = event.target.value as string[];
 
-    const validLocation = selectedLocations?.map((SLOCname) => {
-      console.log(SLOCname.toString());
-      locations.find((location) => {
-        location.name.toLocaleUpperCase() === SLOCname.toLocaleUpperCase();
+    const selectedIds = locations
+      .filter((location) => {
+        return selectedNames.includes(location.name);
+      })
+      .map((location) => {
+        return location.id;
       });
-    });
 
-    console.log("valid", validLocation);
-
-    console.log(selectedLocations);
+    onStateChange(selectedIds);
   };
 
   return (

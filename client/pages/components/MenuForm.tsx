@@ -14,9 +14,38 @@ export default function MunuForm() {
   const url = `${apiBaseUrl}/image`;
 
   const [menuImage, setMenuImage] = useState<File>();
+  const [selectedLocationIds, setSelectedLocationIds] = useState<Number[]>();
+  const [selectedMenuCatIds, setSelectMenuCatedIds] = useState<Number[]>();
+  const [selectedAddonCatIds, setSelectedAddonCatIds] = useState<Number[]>();
+  const [selectedAddonIds, setSelectedAddonIds] = useState<Number[]>();
+
+  const [menu, setMenu] = useState({
+    name: "",
+    price: 0,
+    locationIds: [],
+    menuCatIds: [],
+    addonCatIds: [],
+    addon: [],
+  });
 
   const onFileSelected = (files: File[]) => {
     setMenuImage(files[0]);
+  };
+
+  const locationStateChange = (childStateSelectedLocationIds: any) => {
+    setSelectedLocationIds(childStateSelectedLocationIds);
+  };
+
+  const menuCatStateChange = (childStateSelectedMenuCatIds: any) => {
+    setSelectMenuCatedIds(childStateSelectedMenuCatIds);
+  };
+
+  const addonCatStateChange = (childStateSelectedAddonCatIds: any) => {
+    setSelectedAddonCatIds(childStateSelectedAddonCatIds);
+  };
+
+  const addonStateChange = (childStateSelectedAddonIds: any) => {
+    setSelectedAddonIds(childStateSelectedAddonIds);
   };
 
   const createMenu = async () => {
@@ -57,7 +86,7 @@ export default function MunuForm() {
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div> */}
-            <LocationsSelect />
+            <LocationsSelect onStateChange={locationStateChange} />
           </div>
 
           <div className="flex justify-normal">
@@ -121,13 +150,15 @@ export default function MunuForm() {
               <MultipleSelect
                 title="Menu Categories"
                 menuAndAddonCategories={menuCategories}
+                onStateChange={menuCatStateChange}
               />
               <MultipleSelect
                 title="Addon Categories"
                 menuAndAddonCategories={addonCategories}
+                onStateChange={addonCatStateChange}
               />
 
-              <AddonSelect addons={addons} />
+              <AddonSelect addons={addons} onStateChange={addonStateChange} />
             </div>
           </div>
 
