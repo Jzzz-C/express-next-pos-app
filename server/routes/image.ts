@@ -7,10 +7,10 @@ export default router;
 router.post("/", async (req: Request, res: Response) => {
   try {
     fileUpload(req, res, async (error) => {
-      console.log(req.files);
       if (error) {
         console.log("error", error);
       }
+      console.log(req.files);
       const files = req.files as Express.MulterS3.File[];
       const file = files[0];
       const assetUrl = file.location;

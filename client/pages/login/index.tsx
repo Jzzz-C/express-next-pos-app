@@ -18,11 +18,11 @@ import { useRouter } from "next/router";
 import axios from "axios";
 
 const Login = () => {
+  const router = useRouter();
+
   const { updateData, ...data } = useContext(AppContext);
 
   const [user, setUser] = useState({ email: "", password: "" });
-
-  const router = useRouter();
 
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
@@ -35,7 +35,7 @@ const Login = () => {
       const res = await axios.post(url, { user });
       const { accessToken } = res.data;
 
-      localStorage.setItem("accessToken", accessToken);
+      accessToken && localStorage.setItem("accessToken", accessToken);
       if (accessToken) {
         router.push("/");
       }

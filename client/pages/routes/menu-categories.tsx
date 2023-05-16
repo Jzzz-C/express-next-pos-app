@@ -59,7 +59,7 @@ export default function MenuCategories() {
       >
         <MultipleSelect
           title="Menu Categories"
-          menuAndAddonCategories={menuCategories}
+          menuAndAddonCategoriesAndLocations={menuCategories}
         />
       </Box>
     </Layout>

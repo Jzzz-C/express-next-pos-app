@@ -6,15 +6,16 @@ import Layout from "../components/Layout";
 import { useContext, useState } from "react";
 import { AppContext } from "../contexts/AppContext";
 import MultipleSelect from "../components/MultiSelect";
+import LocationsSelect from "../components/LocationsSelect";
 
 export default function MenuCategories() {
-  const { fetchData, addonCategories } = useContext(AppContext);
+  const { fetchData, locations } = useContext(AppContext);
 
   const [name, setname] = useState("");
 
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
-  const url = `${apiBaseUrl}/addonCategories`;
+  const url = `${apiBaseUrl}/menuCategories`;
 
   const handleSubmit = async () => {
     if (!name) return console.log("This is empty...");
@@ -40,7 +41,7 @@ export default function MenuCategories() {
       >
         <TextField
           id="standard-basic"
-          label="Addon Category Name"
+          label="Location Name"
           variant="standard"
           sx={{ mb: 1 }}
           color="primary"
@@ -48,7 +49,7 @@ export default function MenuCategories() {
           onChange={(e) => setname(e.target.value)}
         />
         <Button onClick={handleSubmit} variant="outlined">
-          Create Addon Category
+          Create Location
         </Button>
       </Box>
 
@@ -57,10 +58,7 @@ export default function MenuCategories() {
           textAlign: "center",
         }}
       >
-        <MultipleSelect
-          title="Addon Categories"
-          menuAndAddonCategoriesAndLocations={addonCategories}
-        />
+        <LocationsSelect />
       </Box>
     </Layout>
   );

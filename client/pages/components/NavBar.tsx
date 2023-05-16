@@ -13,6 +13,7 @@ import FastfoodIcon from "@mui/icons-material/Fastfood";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ClassIcon from "@mui/icons-material/Class";
 import CategoryIcon from "@mui/icons-material/Category";
+import AddLocationIcon from "@mui/icons-material/AddLocation";
 import MailIcon from "@mui/icons-material/Mail";
 import {
   Divider,
@@ -49,7 +50,7 @@ const sidebarMenuItems = [
   },
   {
     id: 5,
-    label: "Addon",
+    label: "Addons",
     icon: <LunchDiningIcon />,
     route: "/routes/addon",
   },
@@ -61,6 +62,12 @@ const sidebarMenuItems = [
   },
   {
     id: 7,
+    label: "Locations",
+    icon: <AddLocationIcon />,
+    route: "/routes/locations",
+  },
+  {
+    id: 8,
     label: "Settings",
     icon: <SettingsIcon />,
     route: "/routes/setting",
@@ -93,7 +100,7 @@ const NavBar = () => {
         onKeyDown={toggleDrawer(false)}
       >
         <List>
-          {sidebarMenuItems.slice(0, 6).map((item) => (
+          {sidebarMenuItems.slice(0, 7).map((item) => (
             <Link
               key={item.id}
               href={item.route}

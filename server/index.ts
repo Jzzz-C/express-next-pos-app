@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
+dotenv.config();
 import { pool } from "./db/db";
 import bcrypt from "bcrypt";
 import cors from "cors";
@@ -19,7 +20,6 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-dotenv.config();
 
 app.use("/deleteMenu", deleteMenu);
 
