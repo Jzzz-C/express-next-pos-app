@@ -81,6 +81,8 @@ router.post("/", async (req: Request, res: Response) => {
       "INSERT INTO menus_addon_categories(menus_id, addon_cat_id) SELECT * FROM UNNEST ($1::int[], $2::int[]) RETURNING *",
       [Array(addonCatIds.length).fill(currentMenuId), addonCatIds]
     );
+
+    // to do with use addon_cat_ids to crate addon
   } catch (err) {
     console.log("error", err);
   }
