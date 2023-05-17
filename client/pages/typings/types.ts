@@ -1,7 +1,3 @@
-interface CategoryName {
-  categoryName: string;
-}
-
 interface IdAndName {
   id: number;
   name: string;
@@ -22,11 +18,14 @@ export interface MenuCategory {
 }
 
 export interface Addon {
+  id: number;
   addon_name: string;
   price: number;
 }
 
-export interface AddonCategory extends CategoryName {
+export interface AddonCategory {
+  id: number;
+  category_name: string;
   isRequired: boolean;
 }
 

@@ -1,13 +1,12 @@
 import * as React from "react";
+import { Theme, useTheme } from "@mui/material/styles";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import ListItemText from "@mui/material/ListItemText";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import Checkbox from "@mui/material/Checkbox";
-import { Addon } from "../typings/types";
 import { useContext } from "react";
+import { title } from "process";
 import { AppContext } from "../contexts/AppContext";
 
 const ITEM_HEIGHT = 48;
@@ -21,9 +20,19 @@ const MenuProps = {
   },
 };
 
-export default function AddonSelect({ onStateChange }: any) {
-  const { addons } = useContext(AppContext);
+function getStyles(name: string, personName: string[], theme: Theme) {
+  return {
+    fontWeight:
+      personName.indexOf(name) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
 
+export default function MultipleSelect({ onStateChange }: any) {
+  const { menuCategories } = useContext(AppContext);
+
+  const theme = useTheme();
   const [personName, setPersonName] = React.useState<string[]>([]);
 
   const handleChange = (event: SelectChangeEvent<typeof personName>) => {
@@ -37,14 +46,12 @@ export default function AddonSelect({ onStateChange }: any) {
 
     const selectedNames = event.target.value as string[];
 
-    console.log(selectedNames);
-
-    const selectedIds = addons
-      .filter((addon) => {
-        return selectedNames.includes(addon.addon_name);
+    const selectedIds = menuCategories
+      .filter((menuCat) => {
+        return selectedNames.includes(menuCat.category_name);
       })
-      .map((addon) => {
-        return addon.id;
+      .map((menuCat) => {
+        return menuCat.id;
       });
 
     onStateChange(selectedIds);
@@ -53,27 +60,26 @@ export default function AddonSelect({ onStateChange }: any) {
   return (
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-checkbox-label">Addons</InputLabel>
+        <InputLabel id="demo-multiple-name-label">Menu Categories</InputLabel>
         <Select
-          labelId="demo-multiple-checkbox-label"
-          id="demo-multiple-checkbox"
+          labelId="demo-multiple-name-label"
+          id="demo-multiple-name"
           multiple
           value={personName}
           onChange={handleChange}
-          input={<OutlinedInput label="Addons" />}
-          renderValue={(selected) => selected.join(", ")}
+          input={<OutlinedInput label="Menu Categories" />}
           MenuProps={MenuProps}
         >
-          {addons.map((addon: any) => (
-            <MenuItem
-              sx={{ display: "flex", justifyContent: "space-between" }}
-              key={addon.id}
-              value={addon.addon_name}
-            >
-              <span>{addon.addon_name}</span>
-              <span>{"$" + addon.price}</span>
-            </MenuItem>
-          ))}
+          {menuCategories &&
+            menuCategories.map((menuCat: any) => (
+              <MenuItem
+                key={menuCat.id}
+                value={menuCat.category_name}
+                style={getStyles(menuCat.category_name, personName, theme)}
+              >
+                {menuCat.category_name}
+              </MenuItem>
+            ))}
         </Select>
       </FormControl>
     </div>

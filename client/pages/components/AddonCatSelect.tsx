@@ -5,6 +5,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { useContext } from "react";
+import { AppContext } from "../contexts/AppContext";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -26,10 +28,8 @@ function getStyles(name: string, personName: string[], theme: Theme) {
   };
 }
 
-export default function MultipleSelect({
-  title,
-  menuAndAddonCategories: names,
-}: any) {
+export default function MultipleSelect({ onStateChange }: any) {
+  const { addonCategories } = useContext(AppContext);
   const theme = useTheme();
   const [personName, setPersonName] = React.useState<string[]>([]);
 
@@ -41,29 +41,41 @@ export default function MultipleSelect({
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
+
+    const selectedNames = event.target.value as string[];
+
+    const selectedIds = addonCategories
+      .filter((addonCat) => {
+        return selectedNames.includes(addonCat.category_name);
+      })
+      .map((addonCat) => {
+        return addonCat.id;
+      });
+
+    onStateChange(selectedIds);
   };
 
   return (
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-name-label">{title && title}</InputLabel>
+        <InputLabel id="demo-multiple-name-label">Addon Categories</InputLabel>
         <Select
           labelId="demo-multiple-name-label"
           id="demo-multiple-name"
           multiple
           value={personName}
           onChange={handleChange}
-          input={<OutlinedInput label={title && title} />}
+          input={<OutlinedInput label="Addon Categories" />}
           MenuProps={MenuProps}
         >
-          {names &&
-            names.map((name: any) => (
+          {addonCategories &&
+            addonCategories.map((addonCat: any) => (
               <MenuItem
-                key={name.id}
-                value={name.category_name}
-                style={getStyles(name.category_name, personName, theme)}
+                key={addonCat.id}
+                value={addonCat.category_name}
+                style={getStyles(addonCat.category_name, personName, theme)}
               >
-                {name.category_name}
+                {addonCat.category_name}
               </MenuItem>
             ))}
         </Select>
