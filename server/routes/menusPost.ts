@@ -5,18 +5,18 @@ import { menuQueries } from "../src/queries/menu.queries";
 const router = express.Router();
 export default router;
 
-router.post("/", async (req: Request, res: Response) => {
-  try {
-    if (req.method === "POST") {
-      const { name, price } = req.body.menu;
-      const result = menuQueries.createMenu({ name, price });
-      console.log(result);
-      res.send("ok");
-    }
-  } catch (err) {
-    console.log("error", err);
-  }
-});
+// router.post("/", async (req: Request, res: Response) => {
+//   try {
+//     if (req.method === "POST") {
+//       const { name, price } = req.body.menu;
+//       const result = menuQueries.createMenu({ name, price });
+//       console.log(result);
+//       res.send("ok");
+//     }
+//   } catch (err) {
+//     console.log("error", err);
+//   }
+// });
 
 router.put("/", async (req: Request, res: Response) => {
   try {
@@ -49,6 +49,20 @@ router.get("/", async (req: Request, res: Response) => {
       // console.log(menus);
       res.send({ menus });
     }
+  } catch (err) {
+    console.log("error", err);
+  }
+});
+
+router.post("/", async (req: Request, res: Response) => {
+  try {
+    const imageUrl = req.body.imageUrl;
+    const { name, price, locationIds, menuCatIds, addonCatIds, addonIds } =
+      req.body.menu;
+
+    console.log(name, price, locationIds, menuCatIds, addonCatIds, addonIds);
+    console.log(imageUrl);
+    res.send("ok");
   } catch (err) {
     console.log("error", err);
   }

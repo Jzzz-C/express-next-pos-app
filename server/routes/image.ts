@@ -10,11 +10,10 @@ router.post("/", async (req: Request, res: Response) => {
       if (error) {
         console.log("error", error);
       }
-      console.log(req.files);
       const files = req.files as Express.MulterS3.File[];
       const file = files[0];
-      const assetUrl = file.location;
-      res.send({ assetUrl });
+      const imageUrl = file.location;
+      res.send({ imageUrl });
     });
   } catch (err) {
     res.sendStatus(500);

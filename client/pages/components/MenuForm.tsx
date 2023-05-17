@@ -6,23 +6,22 @@ import FileDropZone from "./FileDropZone";
 import LocationsSelect from "./LocationsSelect";
 import MenuCatSelect from "./MenuCatSelect";
 import AddonCatSelect from "./AddonCatSelect";
+import axios from "axios";
 
 export default function MunuForm() {
   const { menuCategories, addonCategories, addons } = useContext(AppContext);
 
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
-  const url = `${apiBaseUrl}/image`;
+  const imageEndPoint = `${apiBaseUrl}/image`;
+  const createMenuEndPoint = `${apiBaseUrl}/menusPost`;
 
   const [menuImage, setMenuImage] = useState<File>();
-  // const [selectedLocationIds, setSelectedLocationIds] = useState<Number[]>();
-  // const [selectedMenuCatIds, setSelectMenuCatedIds] = useState<Number[]>();
-  // const [selectedAddonCatIds, setSelectedAddonCatIds] = useState<Number[]>();
-  // const [selectedAddonIds, setSelectedAddonIds] = useState<Number[]>();
 
   const [menu, setMenu] = useState({
     name: "",
     price: 0,
+    // imageUrl: "",
     locationIds: [],
     menuCatIds: [],
     addonCatIds: [],
@@ -52,21 +51,27 @@ export default function MunuForm() {
   const createMenu = async () => {
     try {
       if (menuImage) {
+        console.log("has menu image");
         const formData = new FormData();
         formData.append("files", menuImage as Blob);
-        const response = await fetch(url, {
+        const response = await fetch(imageEndPoint, {
           method: "POST",
           body: formData,
         });
-        const responseJSON = await response.json();
-        console.log(responseJSON.assetUrl);
+        const { imageUrl } = await response.json();
+        // setMenu({ ...menu, imageUrl: imageUrl });
+
+        if (imageUrl) {
+          const res = await axios.post(createMenuEndPoint, { menu, imageUrl });
+          console.log(res);
+        }
       }
     } catch (err) {
       console.log(err);
     }
   };
 
-  console.log("menu : ", menu);
+  console.log(menu);
 
   return (
     <div className="w-full max-w-3xl px-28 py-7 m-auto mt-12  bg-slate-100 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -107,6 +112,7 @@ export default function MunuForm() {
                     name="name"
                     id="name"
                     placeholder="Ah Toke"
+                    onChange={(e) => setMenu({ ...menu, name: e.target.value })}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -125,9 +131,13 @@ export default function MunuForm() {
                     name="price"
                     id="price"
                     placeholder="0000"
+                    onChange={(e) =>
+                      setMenu({ ...menu, price: Number(e.target.value) })
+                    }
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
+                <a href=""></a>
               </div>
 
               <FileDropZone onFileSelected={onFileSelected} />
