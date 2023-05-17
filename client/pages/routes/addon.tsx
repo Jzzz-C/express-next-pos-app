@@ -5,7 +5,6 @@ import { Button } from "@mui/material";
 import Layout from "../components/Layout";
 import { useContext, useState } from "react";
 import { AppContext } from "../contexts/AppContext";
-import MultipleSelect from "../components/MultiSelect";
 import AddonSelect from "../components/AddonSelect";
 
 export default function MenuCategories() {
@@ -72,7 +71,7 @@ export default function MenuCategories() {
           textAlign: "center",
         }}
       >
-        <AddonSelect addons={addons} />
+        <AddonSelect />
       </Box>
     </Layout>
   );

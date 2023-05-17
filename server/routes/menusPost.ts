@@ -60,9 +60,16 @@ router.post("/", async (req: Request, res: Response) => {
     const { name, price, locationIds, menuCatIds, addonCatIds, addonIds } =
       req.body.menu;
 
-    console.log(name, price, locationIds, menuCatIds, addonCatIds, addonIds);
-    console.log(imageUrl);
-    res.send("ok");
+    const menuResult = await pool.query(
+      "INSERT INTO menus(name, price, image_url) values($1, $2, $3) RETURNING *",
+      [name, price, imageUrl]
+    );
+
+    const currentMenuId = menuResult.rows[0].id;
+
+    await pool.query(
+      "INSERT INTO menus(name, price, image_url) values($1, $2, $3) RETURNING *"
+    );
   } catch (err) {
     console.log("error", err);
   }

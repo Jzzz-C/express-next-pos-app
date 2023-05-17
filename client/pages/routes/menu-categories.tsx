@@ -5,7 +5,7 @@ import { Button } from "@mui/material";
 import Layout from "../components/Layout";
 import { useContext, useState } from "react";
 import { AppContext } from "../contexts/AppContext";
-import MultipleSelect from "../components/MultiSelect";
+import MenuCatSelect from "../components/MenuCatSelect";
 
 export default function MenuCategories() {
   const { fetchData, menuCategories } = useContext(AppContext);
@@ -57,10 +57,7 @@ export default function MenuCategories() {
           textAlign: "center",
         }}
       >
-        <MultipleSelect
-          title="Menu Categories"
-          menuAndAddonCategoriesAndLocations={menuCategories}
-        />
+        <MenuCatSelect />
       </Box>
     </Layout>
   );
