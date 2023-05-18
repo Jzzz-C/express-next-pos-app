@@ -2,10 +2,10 @@ import axios from "axios";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
-import Layout from "../components/Layout";
+import Layout from "../../components/Layout";
 import { useContext, useState } from "react";
-import { AppContext } from "../contexts/AppContext";
-import AddonSelect from "../components/AddonSelect";
+import { AppContext } from "../../contexts/AppContext";
+import AddonSelect from "../../components/AddonSelect";
 
 export default function MenuCategories() {
   const { fetchData, addons } = useContext(AppContext);

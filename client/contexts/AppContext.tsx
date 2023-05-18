@@ -7,6 +7,7 @@ import {
   Menu,
 } from "../typings/types";
 import axios from "axios";
+import { getAccessToken } from "@/libs/getAccessToken";
 
 interface AppContextType {
   menus: Menu[];
@@ -95,8 +96,7 @@ const AppProvider = ({ children }: any) => {
   //   }
   // }, [accessToken]);
 
-  const accessToken =
-    typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+  const accessToken = getAccessToken();
 
   useEffect(() => {
     if (accessToken) fetchData();
