@@ -17,14 +17,10 @@ const Layout = ({ children }: any) => {
   }, [accessToken, router]);
 
   return (
-    <>
-      {accessToken && accessToken ? (
-        <div>
-          <NavBar />
-          {children}
-        </div>
-      ) : null}
-    </>
+    <div>
+      <NavBar />
+      {children}
+    </div>
   );
 };
 

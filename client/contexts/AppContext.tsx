@@ -34,15 +34,13 @@ export const defaultContext: AppContextType = {
 export const AppContext = createContext<AppContextType>(defaultContext);
 
 const AppProvider = ({ children }: any) => {
-  const [data, updateData] = useState(defaultContext);
-
-  // const [accessToken, setAccessToken] = useState<String | null>(null);
-
-  console.log("data is", data);
-
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
   const url = `${apiBaseUrl}/getAllData`;
+
+  const [data, updateData] = useState(defaultContext);
+
+  console.log("data is", data);
 
   const fetchData = async () =>
     await axios
