@@ -28,7 +28,7 @@ function getStyles(name: string, personName: string[], theme: Theme) {
   };
 }
 
-export default function MultipleSelect({ onStateChange }: any) {
+export default function AddonCatSelect({ onStateChange }: any) {
   const { addonCategories } = useContext(AppContext);
   const theme = useTheme();
   const [personName, setPersonName] = React.useState<string[]>([]);

@@ -3,9 +3,9 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { AppContext } from "@/pages/contexts/AppContext";
+import { AppContext } from "@/contexts/AppContext";
 import axios from "axios";
-import { Menu } from "@/pages/typings/types";
+import { Menu } from "@/typings/types";
 
 const style = {
   position: "absolute" as "absolute",

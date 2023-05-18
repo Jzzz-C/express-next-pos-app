@@ -60,9 +60,29 @@ router.post("/", async (req: Request, res: Response) => {
     const { name, price, locationIds, menuCatIds, addonCatIds, addonIds } =
       req.body.menu;
 
-    console.log(name, price, locationIds, menuCatIds, addonCatIds, addonIds);
-    console.log(imageUrl);
-    res.send("ok");
+    const menuResult = await pool.query(
+      "INSERT INTO menus(name, price, image_url) values($1, $2, $3) RETURNING *",
+      [name, price, imageUrl]
+    );
+
+    const currentMenuId = menuResult.rows[0].id;
+
+    await pool.query(
+      "INSERT INTO location_menus(location_id, menu_id) SELECT * FROM UNNEST ($1::int[], $2::int[]) RETURNING *",
+      [locationIds, Array(locationIds.length).fill(currentMenuId)]
+    );
+
+    await pool.query(
+      "INSERT INTO menus_menu_categories(menus_id, category_id) SELECT * FROM UNNEST ($1::int[], $2::int[]) RETURNING *",
+      [Array(menuCatIds.length).fill(currentMenuId), menuCatIds]
+    );
+
+    await pool.query(
+      "INSERT INTO menus_addon_categories(menus_id, addon_cat_id) SELECT * FROM UNNEST ($1::int[], $2::int[]) RETURNING *",
+      [Array(addonCatIds.length).fill(currentMenuId), addonCatIds]
+    );
+
+    // to do with use addon_cat_ids to crate addon
   } catch (err) {
     console.log("error", err);
   }

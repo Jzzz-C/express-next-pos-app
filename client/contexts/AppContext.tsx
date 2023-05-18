@@ -7,7 +7,7 @@ import {
   Menu,
 } from "../typings/types";
 import axios from "axios";
-import { getAccessToken } from "@/utils/general";
+import { getAccessToken } from "@/libs/getAccessToken";
 
 interface AppContextType {
   menus: Menu[];

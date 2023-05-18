@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import NavBar from "./NavBar";
 import { useEffect, useState } from "react";
-import { getAccessToken } from "@/utils/general";
+import { getAccessToken } from "@/libs/getAccessToken";
 
 interface Props {
   children: string | JSX.Element | JSX.Element[];

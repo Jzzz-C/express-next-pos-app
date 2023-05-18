@@ -2,10 +2,10 @@ import axios from "axios";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
-import Layout from "../components/Layout";
+import Layout from "../../components/Layout";
 import { useContext, useState } from "react";
-import { AppContext } from "../contexts/AppContext";
-import MultipleSelect from "../components/MultiSelect";
+import { AppContext } from "../../contexts/AppContext";
+import AddonCatSelect from "../../components/AddonCatSelect";
 
 export default function MenuCategories() {
   const { fetchData, addonCategories } = useContext(AppContext);
@@ -57,10 +57,7 @@ export default function MenuCategories() {
           textAlign: "center",
         }}
       >
-        <MultipleSelect
-          title="Addon Categories"
-          menuAndAddonCategoriesAndLocations={addonCategories}
-        />
+        <AddonCatSelect />
       </Box>
     </Layout>
   );

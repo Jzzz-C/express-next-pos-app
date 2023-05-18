@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import Layout from "../components/Layout";
-import { AppContext } from "../contexts/AppContext";
-import { Location } from "../typings/types";
+import Layout from "../../components/Layout";
+import { AppContext } from "../../contexts/AppContext";
+import { Location } from "../../typings/types";
 import {
   Box,
   Button,

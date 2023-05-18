@@ -29,7 +29,7 @@ function getStyles(name: string, personName: string[], theme: Theme) {
   };
 }
 
-export default function MultipleSelect({ onStateChange }: any) {
+export default function MenuCatSelect({ onStateChange }: any) {
   const { menuCategories } = useContext(AppContext);
 
   const theme = useTheme();
