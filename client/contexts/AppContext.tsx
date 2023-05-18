@@ -35,12 +35,14 @@ export const AppContext = createContext<AppContextType>(defaultContext);
 
 const AppProvider = ({ children }: any) => {
   const [data, updateData] = useState(defaultContext);
+  const accessToken = getAccessToken();
 
   // const [accessToken, setAccessToken] = useState<String | null>(null);
 
   console.log("data is", data);
 
-  const apiBaseUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
+  const apiBaseUrl =
+    process.env.NEXT_PUBLIC_API_ENDPOINT || "http://localhost:5000";
 
   const url = `${apiBaseUrl}/getAllData`;
 
@@ -95,8 +97,6 @@ const AppProvider = ({ children }: any) => {
   //     fetchData();
   //   }
   // }, [accessToken]);
-
-  const accessToken = getAccessToken();
 
   useEffect(() => {
     if (accessToken) fetchData();
