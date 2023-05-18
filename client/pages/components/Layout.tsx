@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import NavBar from "./NavBar";
 import { useEffect, useState } from "react";
+import { getAccessToken } from "@/utils/general";
 
 interface Props {
   children: string | JSX.Element | JSX.Element[];
@@ -8,23 +9,17 @@ interface Props {
 
 const Layout = ({ children }: any) => {
   const router = useRouter();
-
-  const accessToken =
-    typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+  const accessToken = getAccessToken();
 
   useEffect(() => {
     if (!accessToken) router.push("/login");
   }, [accessToken, router]);
 
   return (
-    <>
-      {accessToken ? (
-        <div>
-          <NavBar />
-          {children}
-        </div>
-      ) : null}
-    </>
+    <div>
+      <NavBar />
+      {children}
+    </div>
   );
 };
 
