@@ -4,39 +4,18 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import React, { useState } from "react";
 
 const CreateAddons = () => {
-  const [count, setCount] = useState<Number[]>([]);
+  const [count, setCount] = useState(0);
   const [addonCatName, setAddonCatName] = useState("");
+  const [addonName, setAddonName] = useState<String[]>([]);
+  const [addonPrice, setAddonPrice] = useState<Number[]>([]);
 
-  const addons = () => {
-    for (let i = 0; i < count?.length; i++) {
-      return (
-        <Box>
-          <Box>{i}</Box>
-          <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-            <TextField
-              id="standard-basic"
-              label="Addon Name"
-              variant="standard"
-              sx={{ mb: 1, mr: 3 }}
-              color="primary"
-              focused
-              onChange={(e) => setAddonCatName(e.target.value)}
-            />
-            <TextField
-              id="standard-basic"
-              label="Price"
-              variant="standard"
-              type="number"
-              sx={{ mb: 1 }}
-              color="primary"
-              focused
-              onChange={(e) => setAddonCatName(e.target.value)}
-            />
-          </Box>
-        </Box>
-      );
-    }
-  };
+  const addonIds = Array.from({ length: count }, (_, index) => index + 1);
+
+  console.log("count: ", count);
+  console.log("addonIds: ", addonIds);
+
+  console.log("addon name: ", addonName);
+  console.log("addon price: ", addonPrice);
 
   return (
     <Layout>
@@ -61,7 +40,35 @@ const CreateAddons = () => {
             onChange={(e) => setAddonCatName(e.target.value)}
           />
 
-          {addons()}
+          {addonIds &&
+            addonIds.map((e, index) => (
+              <Box
+                key={index}
+                sx={{ display: "flex", justifyContent: "space-around" }}
+              >
+                <TextField
+                  id="standard-basic"
+                  label="Addon Name"
+                  variant="standard"
+                  sx={{ mb: 1, mr: 3 }}
+                  color="primary"
+                  focused
+                  onChange={(e) => setAddonName([...addonName, e.target.value])}
+                />
+                <TextField
+                  id="standard-basic"
+                  label="Price"
+                  variant="standard"
+                  type="number"
+                  sx={{ mb: 1 }}
+                  color="primary"
+                  focused
+                  onChange={(e) =>
+                    setAddonPrice([...addonPrice, Number(e.target.value)])
+                  }
+                />
+              </Box>
+            ))}
 
           <Button
             sx={{
