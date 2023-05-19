@@ -48,26 +48,32 @@ const sidebarMenuItems = [
     icon: <CategoryIcon />,
     route: "/routes/menu-categories",
   },
+  // {
+  //   id: 5,
+  //   label: "Addons",
+  //   icon: <LunchDiningIcon />,
+  //   route: "/routes/addon",
+  // },
+  // {
+  //   id: 6,
+  //   label: "Addon Categories",
+  //   icon: <ClassIcon />,
+  //   route: "/routes/addon-categories",
+  // },
   {
     id: 5,
-    label: "Addons",
+    label: "Create Addons",
     icon: <LunchDiningIcon />,
-    route: "/routes/addon",
+    route: "/routes/create-addons",
   },
   {
     id: 6,
-    label: "Addon Categories",
-    icon: <ClassIcon />,
-    route: "/routes/addon-categories",
-  },
-  {
-    id: 7,
     label: "Locations",
     icon: <AddLocationIcon />,
     route: "/routes/locations",
   },
   {
-    id: 8,
+    id: 7,
     label: "Settings",
     icon: <SettingsIcon />,
     route: "/routes/setting",
@@ -100,7 +106,7 @@ const NavBar = () => {
         onKeyDown={toggleDrawer(false)}
       >
         <List>
-          {sidebarMenuItems.slice(0, 7).map((item) => (
+          {sidebarMenuItems.slice(0, 6).map((item) => (
             <Link
               key={item.id}
               href={item.route}

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import NavBar from "./NavBar";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getAccessToken } from "@/libs/getAccessToken";
 
 interface Props {
@@ -13,7 +13,9 @@ const Layout = ({ children }: any) => {
   const accessToken = getAccessToken();
 
   useEffect(() => {
-    if (!accessToken) router.push("/login");
+    if (!accessToken) {
+      router.push("/login");
+    }
   }, [accessToken, router]);
 
   return (
