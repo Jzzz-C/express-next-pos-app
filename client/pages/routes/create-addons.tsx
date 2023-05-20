@@ -2,8 +2,13 @@ import Layout from "@/components/Layout";
 import { Box, TextField, Button } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import React, { useState } from "react";
+import axios from "axios";
 
 const CreateAddons = () => {
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
+
+  const url = `${apiBaseUrl}/create-addon`;
+
   const [count, setCount] = useState(0);
   const [addonCatName, setAddonCatName] = useState("");
   const [addonName, setAddonName] = useState<String[]>([]);
@@ -29,8 +34,20 @@ const CreateAddons = () => {
     setAddonPrice(updatedValues);
   };
 
-  console.log("addon name: ", addonName);
-  console.log("addon price: ", addonPrice);
+  const createAddon = async () => {
+    const res = await axios.post(url, {
+      addonCatName,
+      addonName,
+      addonPrice,
+    });
+
+    console.log(res);
+
+    setAddonCatName("");
+    setAddonName([]);
+    setAddonPrice([]);
+    setCount(0);
+  };
 
   return (
     <Layout>
@@ -52,6 +69,7 @@ const CreateAddons = () => {
             sx={{ mb: 1 }}
             color="primary"
             focused
+            value={addonCatName}
             onChange={(e) => setAddonCatName(e.target.value)}
           />
 
@@ -98,7 +116,9 @@ const CreateAddons = () => {
             <AddCircleIcon color="primary" />
           </Button>
 
-          <Button variant="outlined">Create Addons</Button>
+          <Button onClick={createAddon} variant="outlined">
+            Create Addons
+          </Button>
         </Box>
       </Box>
     </Layout>

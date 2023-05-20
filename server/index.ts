@@ -10,6 +10,7 @@ import deleteMenu from "./routes/deleteMenu";
 import getAllData from "./routes/getAllData";
 import menusPost from "./routes/menusPost";
 import menuCategories from "./routes/menuCategories";
+import createAddon from "./routes/createAddon";
 import addonCategories from "./routes/addonCategories";
 import addon from "./routes/addon";
 import image from "./routes/image";
@@ -28,6 +29,8 @@ app.use("/getAllData", getAllData);
 app.use("/menusPost", menusPost);
 
 app.use("/menuCategories", menuCategories);
+
+app.use("/create-addon", createAddon);
 
 app.use("/addonCategories", addonCategories);
 
