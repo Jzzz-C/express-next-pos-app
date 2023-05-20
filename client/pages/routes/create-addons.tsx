@@ -11,8 +11,23 @@ const CreateAddons = () => {
 
   const addonIds = Array.from({ length: count }, (_, index) => index + 1);
 
-  console.log("count: ", count);
-  console.log("addonIds: ", addonIds);
+  const addonNames = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    index: number
+  ) => {
+    const updatedValues = [...addonName];
+    updatedValues[index] = e.target.value;
+    setAddonName(updatedValues);
+  };
+
+  const addonPrices = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    index: number
+  ) => {
+    const updatedValues = [...addonPrice];
+    updatedValues[index] = Number(e.target.value);
+    setAddonPrice(updatedValues);
+  };
 
   console.log("addon name: ", addonName);
   console.log("addon price: ", addonPrice);
@@ -53,8 +68,9 @@ const CreateAddons = () => {
                   sx={{ mb: 1, mr: 3 }}
                   color="primary"
                   focused
-                  onChange={(e) => setAddonName([...addonName, e.target.value])}
+                  onChange={(e) => addonNames(e, index)}
                 />
+
                 <TextField
                   id="standard-basic"
                   label="Price"
@@ -63,9 +79,7 @@ const CreateAddons = () => {
                   sx={{ mb: 1 }}
                   color="primary"
                   focused
-                  onChange={(e) =>
-                    setAddonPrice([...addonPrice, Number(e.target.value)])
-                  }
+                  onChange={(e) => addonPrices(e, index)}
                 />
               </Box>
             ))}
