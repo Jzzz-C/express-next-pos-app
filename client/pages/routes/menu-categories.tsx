@@ -23,6 +23,7 @@ export default function MenuCategories() {
       name,
     });
 
+    setname("");
     fetchData();
   };
 
@@ -44,6 +45,7 @@ export default function MenuCategories() {
           variant="standard"
           sx={{ mb: 1 }}
           color="primary"
+          value={name}
           focused
           onChange={(e) => setname(e.target.value)}
         />

@@ -1,10 +1,13 @@
 import Layout from "@/components/Layout";
 import { Box, TextField, Button } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
+import { AppContext } from "@/contexts/AppContext";
 
 const CreateAddons = () => {
+  const { fetchData } = useContext(AppContext);
+
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
   const url = `${apiBaseUrl}/create-addon`;
@@ -47,6 +50,8 @@ const CreateAddons = () => {
     setAddonName([]);
     setAddonPrice([]);
     setCount(0);
+
+    fetchData();
   };
 
   return (

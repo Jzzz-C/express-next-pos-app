@@ -25,7 +25,7 @@ export default function MunuForm() {
     locationIds: [],
     menuCatIds: [],
     addonCatIds: [],
-    addonIds: [],
+    // addonIds: [],
   });
 
   const onFileSelected = (files: File[]) => {
@@ -44,9 +44,9 @@ export default function MunuForm() {
     setMenu({ ...menu, addonCatIds: childStateSelectedAddonCatIds });
   };
 
-  const addonStateChange = (childStateSelectedAddonIds: any) => {
-    setMenu({ ...menu, addonIds: childStateSelectedAddonIds });
-  };
+  // const addonStateChange = (childStateSelectedAddonIds: any) => {
+  //   setMenu({ ...menu, addonIds: childStateSelectedAddonIds });
+  // };
 
   const createMenu = async () => {
     try {
@@ -78,8 +78,8 @@ export default function MunuForm() {
       <div>
         <p className="font-semibold text-xl">Create A New Menu</p>
         <div className="mt-10 space-y-4">
-          <div className="max-w-md sm:col-span-4">
-            {/* <label
+          {/* <div className="max-w-md sm:col-span-4">
+            <label
               htmlFor="location"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
@@ -93,9 +93,8 @@ export default function MunuForm() {
                 placeholder="Ma Ma"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
-            </div> */}
-            <LocationsSelect onStateChange={locationStateChange} />
-          </div>
+            </div>
+          </div> */}
 
           <div className="flex justify-normal">
             <div className="max-w-sm space-y-5 mr-14">
@@ -160,10 +159,15 @@ export default function MunuForm() {
               </div>
             </div>
             <div className="space-y-3">
+              <LocationsSelect onStateChange={locationStateChange} />
+
               <MenuCatSelect onStateChange={menuCatStateChange} />
+
               <AddonCatSelect onStateChange={addonCatStateChange} />
 
-              <AddonSelect onStateChange={addonStateChange} />
+              {/* <AddonCatSelect onStateChange={addonCatStateChange} />
+
+              <AddonSelect onStateChange={addonStateChange} /> */}
             </div>
           </div>
 

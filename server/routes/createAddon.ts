@@ -24,8 +24,13 @@ router.post("/", async (req: Request, res: Response) => {
       return addon.id;
     });
 
-    console.log(currentAddonCatId);
-    console.log(currentAddonIdArray);
+    await pool.query(
+      "INSERT INTO addon_addon_categories(addon_id, addon_cat_id) SELECT * FROM UNNEST ($1::int[], $2::int[]) RETURNING *",
+      [
+        currentAddonIdArray,
+        Array(currentAddonIdArray.length).fill(currentAddonCatId),
+      ]
+    );
 
     res.send("ok");
   } catch (err) {

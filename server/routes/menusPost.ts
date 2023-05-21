@@ -57,8 +57,7 @@ router.get("/", async (req: Request, res: Response) => {
 router.post("/", async (req: Request, res: Response) => {
   try {
     const imageUrl = req.body.imageUrl;
-    const { name, price, locationIds, menuCatIds, addonCatIds, addonIds } =
-      req.body.menu;
+    const { name, price, locationIds, menuCatIds, addonCatIds } = req.body.menu;
 
     const menuResult = await pool.query(
       "INSERT INTO menus(name, price, image_url) values($1, $2, $3) RETURNING *",
@@ -82,7 +81,7 @@ router.post("/", async (req: Request, res: Response) => {
       [Array(addonCatIds.length).fill(currentMenuId), addonCatIds]
     );
 
-    // to do with use addon_cat_ids to crate addon
+    res.send("ok");
   } catch (err) {
     console.log("error", err);
   }

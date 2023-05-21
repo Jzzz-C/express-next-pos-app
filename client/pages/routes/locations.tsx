@@ -5,7 +5,6 @@ import { Button } from "@mui/material";
 import Layout from "../../components/Layout";
 import { useContext, useState } from "react";
 import { AppContext } from "../../contexts/AppContext";
-import MultipleSelect from "../../components/MultiSelect";
 import LocationsSelect from "../../components/LocationsSelect";
 
 export default function MenuCategories() {
@@ -15,7 +14,7 @@ export default function MenuCategories() {
 
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
-  const url = `${apiBaseUrl}/menuCategories`;
+  const url = `${apiBaseUrl}/locations`;
 
   const handleSubmit = async () => {
     if (!name) return console.log("This is empty...");
@@ -24,6 +23,7 @@ export default function MenuCategories() {
       name,
     });
 
+    setname("");
     fetchData();
   };
 
@@ -45,6 +45,7 @@ export default function MenuCategories() {
           variant="standard"
           sx={{ mb: 1 }}
           color="primary"
+          value={name}
           focused
           onChange={(e) => setname(e.target.value)}
         />
