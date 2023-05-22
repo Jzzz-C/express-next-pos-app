@@ -43,8 +43,6 @@ router.post("/", async (req: Request, res: Response) => {
   };
 
   const secretKey = process.env.JWT_SECRET || "";
-  const accessToken = jwt.sign(user, secretKey, {
-    expiresIn: 1000 * 60 * 60 * 24, // one day
-  });
+  const accessToken = jwt.sign(user, secretKey);
   res.send({ accessToken });
 });

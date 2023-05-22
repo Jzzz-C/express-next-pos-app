@@ -36,17 +36,13 @@ router.put("/", async (req: Request, res: Response) => {
 router.get("/", async (req: Request, res: Response) => {
   try {
     if (req.method === "GET") {
-      // console.log(req.query);
       const id = req.query.id;
-      const text = `SELECT menus.id, menus.name AS menu_name, url, price, is_available AS available, locations.name AS location_name FROM menus
-        INNER JOIN location_menus ON location_menus.menu_id = menus.id
-        INNER JOIN locations ON locations.id = location_menus.location_id
-        INNER JOIN menus_menu_images ON menus_menu_images.menus_id = menus.id
-        INNER JOIN menu_images ON menu_images.id = menus_menu_images.menu_images_id
+      const text = `SELECT menus.name AS menu_name, price, image_url, locations.name AS location_name FROM MENUS
+        INNER JOIN location_menus on location_menus.menu_id = menus.id
+        INNER JOIN locations on locations.id = location_menus.location_id
         WHERE locations.id = $1`;
       const values = [id];
       const menus = (await pool.query(text, values)).rows;
-      // console.log(menus);
       res.send({ menus });
     }
   } catch (err) {

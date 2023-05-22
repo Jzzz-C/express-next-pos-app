@@ -7,9 +7,8 @@ export interface Menu {
   id: number;
   menu_name: string;
   location_name: string;
-  available: boolean;
   price: number;
-  url: string;
+  image_url: string;
 }
 
 export interface MenuCategory {

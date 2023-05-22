@@ -9,7 +9,8 @@ import AddonCatSelect from "./AddonCatSelect";
 import axios from "axios";
 
 export default function MunuForm() {
-  const { menuCategories, addonCategories, addons } = useContext(AppContext);
+  const { menuCategories, addonCategories, addons, fetchData } =
+    useContext(AppContext);
 
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
@@ -65,6 +66,8 @@ export default function MunuForm() {
           const res = await axios.post(createMenuEndPoint, { menu, imageUrl });
           console.log(res);
         }
+
+        fetchData();
       }
     } catch (err) {
       console.log(err);
