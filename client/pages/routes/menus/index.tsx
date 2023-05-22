@@ -28,32 +28,39 @@ const style = {
 };
 
 export default function Menus() {
-  const { fetchData, updateData, menus, locations, ...data } =
-    useContext(AppContext);
+  const {
+    updateData,
+    menus,
+    locations,
+    menuCategories,
+    menusMenuCat,
+    menusAddonCat,
+    addonCategories,
+    addonAddonCat,
+    addons,
+    ...data
+  } = useContext(AppContext);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const getMenusByLocationId = useCallback(
-    async (id: string) => {
-      const apiBaseUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
+  const getMenusByLocationId = async (id: string) => {
+    const apiBaseUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
-      const url = `${apiBaseUrl}/menusPost?id=${id}`;
+    const url = `${apiBaseUrl}/menusPost?id=${id}`;
 
-      await axios
-        .get(url)
-        .then((res) => {
-          const { menus } = res.data;
-          updateData({ ...data, fetchData, updateData, locations, menus });
-          return res;
-        })
-        .catch((err) => {
-          return err;
-        });
-    },
-    [data, fetchData, updateData, locations]
-  );
+    await axios
+      .get(url)
+      .then((res) => {
+        const { menus } = res.data;
+        updateData({ ...data, updateData, locations, menus });
+        return res;
+      })
+      .catch((err) => {
+        return err;
+      });
+  };
 
   useEffect(() => {
     if (locations.length) {
@@ -65,7 +72,7 @@ export default function Menus() {
         getMenusByLocationId(locationId);
       }
     }
-  }, [locations, getMenusByLocationId]);
+  }, [locations]);
 
   return (
     <Layout>

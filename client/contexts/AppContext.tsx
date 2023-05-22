@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useCallback } from "react";
 import {
   Addon,
   AddonCategory,
@@ -51,7 +51,7 @@ const AppProvider = ({ children }: any) => {
 
   console.log("data is", data);
 
-  const fetchData = async () =>
+  const fetchData = async () => {
     await axios
       .get(url)
       .then((res) => {
@@ -79,6 +79,7 @@ const AppProvider = ({ children }: any) => {
       .catch((err) => {
         return err;
       });
+  };
 
   // const getMenusByLocationId = async (id: string) => {
   //   await axios

@@ -37,7 +37,7 @@ router.get("/", async (req: Request, res: Response) => {
   try {
     if (req.method === "GET") {
       const id = req.query.id;
-      const text = `SELECT menus.name AS menu_name, price, image_url, locations.name AS location_name FROM MENUS
+      const text = `SELECT menus.id, menus.name AS menu_name, price, image_url, locations.name AS location_name FROM MENUS
         INNER JOIN location_menus on location_menus.menu_id = menus.id
         INNER JOIN locations on locations.id = location_menus.location_id
         WHERE locations.id = $1`;
