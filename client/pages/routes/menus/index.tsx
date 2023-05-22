@@ -2,6 +2,7 @@
 import axios from "axios";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import InfoIcon from "@mui/icons-material/Info";
 import { Button, Modal } from "@mui/material";
 import Chip from "@mui/material/Chip";
 import { useCallback, useContext, useEffect, useState } from "react";
@@ -148,7 +149,8 @@ export default function Menus() {
                     </span>
                     <div>
                       <Button variant="outlined" onClick={handleOpen}>
-                        Update Menu
+                        <InfoIcon />
+                        {/* Update Menu */}
                       </Button>
 
                       <Modal
@@ -159,7 +161,7 @@ export default function Menus() {
                         aria-describedby="modal-modal-description"
                       >
                         <Box sx={style}>
-                          <form onSubmit={() => {}}>
+                          {/* <form onSubmit={() => {}}>
                             <div className="mb-6">
                               <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Name
@@ -192,7 +194,7 @@ export default function Menus() {
                                 Update
                               </button>
                             </div>
-                          </form>
+                          </form> */}
                         </Box>
                       </Modal>
                     </div>

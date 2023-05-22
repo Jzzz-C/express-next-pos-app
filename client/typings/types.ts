@@ -16,6 +16,24 @@ export interface MenuCategory {
   category_name: string;
 }
 
+export interface AddonAddonCat {
+  id: number;
+  addon_id: number;
+  addon_cat_id: number;
+}
+
+export interface MenusAddonCat {
+  id: number;
+  menus_id: number;
+  addon_cat_id: number;
+}
+
+export interface MenusMenuCat {
+  id: number;
+  menus_id: number;
+  category_id: number;
+}
+
 export interface Addon {
   id: number;
   addon_name: string;

@@ -5,6 +5,9 @@ import {
   Location,
   MenuCategory,
   Menu,
+  AddonAddonCat,
+  MenusAddonCat,
+  MenusMenuCat,
 } from "../typings/types";
 import axios from "axios";
 import { getAccessToken } from "@/libs/getAccessToken";
@@ -15,6 +18,9 @@ interface AppContextType {
   addons: Addon[];
   addonCategories: AddonCategory[];
   locations: Location[];
+  addonAddonCat: AddonAddonCat[];
+  menusAddonCat: MenusAddonCat[];
+  menusMenuCat: MenusMenuCat[];
   accessToken: string;
   updateData: (value: any) => void;
   fetchData: () => void;
@@ -26,6 +32,9 @@ export const defaultContext: AppContextType = {
   addons: [],
   addonCategories: [],
   locations: [],
+  addonAddonCat: [],
+  menusAddonCat: [],
+  menusMenuCat: [],
   accessToken: "",
   updateData: () => {},
   fetchData: () => {},
@@ -46,13 +55,24 @@ const AppProvider = ({ children }: any) => {
     await axios
       .get(url)
       .then((res) => {
-        const { menuCategories, addons, addonCategories, locations } = res.data;
+        const {
+          menuCategories,
+          addons,
+          addonCategories,
+          locations,
+          addonAddonCat,
+          menusAddonCat,
+          menusMenuCat,
+        } = res.data;
         updateData({
           ...data,
           menuCategories,
           addons,
           addonCategories,
           locations,
+          addonAddonCat,
+          menusAddonCat,
+          menusMenuCat,
         });
         return res;
       })
