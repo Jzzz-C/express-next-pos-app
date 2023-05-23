@@ -14,20 +14,8 @@ router.get("/", async (req: Request, res: Response) => {
         await pool.query("select * from addon_categories")
       ).rows;
       const locations = (await pool.query("select * from locations")).rows;
-      const addonAddonCat = (
-        await pool.query("select * from addon_addon_categories")
-      ).rows;
-      const menusMenuCat = (
-        await pool.query("select * from menus_menu_categories")
-      ).rows;
-      const menusAddonCat = (
-        await pool.query("select * from menus_addon_categories")
-      ).rows;
 
       res.send({
-        addonAddonCat,
-        menusMenuCat,
-        menusAddonCat,
         menuCategories,
         addons,
         addonCategories,

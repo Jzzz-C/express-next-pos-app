@@ -95,6 +95,9 @@ router.get("/", async (req: Request, res: Response) => {
         menuCategories: menuCategoriesResult.rows,
         addonCategories: addonCategoriesResult.rows,
         addons: addonsResult.rows,
+        addonAddonCat: addonAddonCategoriesResult.rows,
+        menusAddonCat: menusAddonCategoriesResult.rows,
+        menusMenuCat: menusMenuCategoriesResult.rows,
       });
     }
   } catch (err) {

@@ -55,24 +55,13 @@ const AppProvider = ({ children }: any) => {
     await axios
       .get(url)
       .then((res) => {
-        const {
-          menuCategories,
-          addons,
-          addonCategories,
-          locations,
-          addonAddonCat,
-          menusAddonCat,
-          menusMenuCat,
-        } = res.data;
+        const { menuCategories, addons, addonCategories, locations } = res.data;
         updateData({
           ...data,
           menuCategories,
           addons,
           addonCategories,
           locations,
-          addonAddonCat,
-          menusAddonCat,
-          menusMenuCat,
         });
         return res;
       })

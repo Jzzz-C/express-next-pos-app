@@ -53,8 +53,27 @@ export default function Menus() {
     await axios
       .get(url)
       .then((res) => {
-        const { menus } = res.data;
-        updateData({ ...data, updateData, locations, menus });
+        const {
+          menus,
+          menuCategories,
+          addonCategories,
+          addons,
+          addonAddonCat,
+          menusAddonCat,
+          menusMenuCat,
+        } = res.data;
+        updateData({
+          ...data,
+          updateData,
+          locations,
+          menus,
+          menuCategories,
+          addonCategories,
+          addons,
+          addonAddonCat,
+          menusAddonCat,
+          menusMenuCat,
+        });
         return res;
       })
       .catch((err) => {
@@ -73,6 +92,26 @@ export default function Menus() {
       }
     }
   }, [locations]);
+
+  const menusCat = (id: number) => {
+    const menuMenuCatIds = menusMenuCat
+      .filter((menuCat) => menuCat.id === id)
+      .map((menuCat) => menuCat.category_id);
+
+    const menuCatNames = menuCategories
+      .filter((menuCat) => menuMenuCatIds.includes(menuCat.id))
+      .map((menuCat) => menuCat.category_name);
+
+    console.log("first", menuCatNames);
+
+    return (
+      <div>
+        {menuCatNames.map((menuCat, index) => (
+          <div key={index}> {menuCat}</div>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <Layout>
@@ -202,6 +241,28 @@ export default function Menus() {
                               </button>
                             </div>
                           </form> */}
+
+                          <img
+                            className="p-8 rounded-[2.5rem]"
+                            src={menu.image_url}
+                            alt="product image"
+                          />
+
+                          <div>{menusCat(menu.id)}</div>
+
+                          <div className="px-5 pb-5">
+                            <h3 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                              {menu.location_name}
+                            </h3>
+                            <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                              {menu.menu_name}
+                            </h5>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="text-3xl font-bold text-gray-900 dark:text-white">
+                              ${menu.price}
+                            </span>
+                          </div>
                         </Box>
                       </Modal>
                     </div>
