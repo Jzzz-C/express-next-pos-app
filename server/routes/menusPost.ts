@@ -55,7 +55,7 @@ router.get("/", async (req: Request, res: Response) => {
 
       const menuCategoryIds = menusMenuCategoriesResult.rows.map(
         (row) => row.category_id
-      );
+      ) as number[];
 
       const menuCategoriesResult = await pool.query(
         "select * from menu_categories where  id = ANY($1::int[])",
@@ -69,14 +69,33 @@ router.get("/", async (req: Request, res: Response) => {
 
       const addonCategoryIds = menusAddonCategoriesResult.rows.map(
         (row) => row.addon_cat_id
-      );
+      ) as number[];
 
       const addonCategoriesResult = await pool.query(
         "select * from addon_categories where id = ANY($1::int[])",
         [addonCategoryIds]
       );
 
-      res.send({ menus });
+      const addonAddonCategoriesResult = await pool.query(
+        "select * from addon_addon_categories where addon_cat_id = ANY($1::int[])",
+        [addonCategoryIds]
+      );
+
+      const addonIds = addonAddonCategoriesResult.rows.map(
+        (row) => row.addon_id
+      ) as number[];
+
+      const addonsResult = await pool.query(
+        "select * from addon where id = ANY($1::int[])",
+        [addonIds]
+      );
+
+      res.send({
+        menus: menus.rows,
+        menuCategories: menuCategoriesResult.rows,
+        addonCategories: addonCategoriesResult.rows,
+        addons: addonsResult.rows,
+      });
     }
   } catch (err) {
     console.log("error", err);
