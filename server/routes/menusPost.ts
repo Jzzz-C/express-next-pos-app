@@ -37,12 +37,31 @@ router.get("/", async (req: Request, res: Response) => {
   try {
     if (req.method === "GET") {
       const id = req.query.id;
-      const text = `SELECT menus.id, menus.name AS menu_name, price, image_url, locations.name AS location_name FROM MENUS
+
+      const menus = await pool.query(
+        `SELECT menus.id, menus.name AS menu_name, price, image_url, locations.name AS location_name FROM MENUS
         INNER JOIN location_menus on location_menus.menu_id = menus.id
         INNER JOIN locations on locations.id = location_menus.location_id
-        WHERE locations.id = $1`;
-      const values = [id];
-      const menus = (await pool.query(text, values)).rows;
+        WHERE locations.id = $1`,
+        [id]
+      );
+
+      const menusIds = menus.rows.map((menu) => menu.id) as number[];
+
+      const menusMenuCategoriesResult = await pool.query(
+        "select * from menus_menu_categories where menus_id = ANY($1::int[])",
+        [menusIds]
+      );
+
+      const menuCategoryIds = menusMenuCategoriesResult.rows.map(
+        (row) => row.category_id
+      );
+
+      const menuCategoriesResult = await pool.query(
+        "select * from menu_categories where  id = ANY($1::int[])",
+        [menuCategoryIds]
+      );
+
       res.send({ menus });
     }
   } catch (err) {
