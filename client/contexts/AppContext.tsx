@@ -18,9 +18,6 @@ interface AppContextType {
   addons: Addon[];
   addonCategories: AddonCategory[];
   locations: Location[];
-  addonAddonCat: AddonAddonCat[];
-  menusAddonCat: MenusAddonCat[];
-  menusMenuCat: MenusMenuCat[];
   accessToken: string;
   updateData: (value: any) => void;
   fetchData: () => void;
@@ -32,9 +29,6 @@ export const defaultContext: AppContextType = {
   addons: [],
   addonCategories: [],
   locations: [],
-  addonAddonCat: [],
-  menusAddonCat: [],
-  menusMenuCat: [],
   accessToken: "",
   updateData: () => {},
   fetchData: () => {},
@@ -49,7 +43,7 @@ const AppProvider = ({ children }: any) => {
 
   const [data, updateData] = useState(defaultContext);
 
-  console.log("data is", data);
+  // console.log("data is", data);
 
   const fetchData = async () => {
     await axios

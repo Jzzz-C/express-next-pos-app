@@ -10,7 +10,15 @@ import { AppContext } from "@/contexts/AppContext";
 import Layout from "@/components/Layout";
 import ButtonSide from "./ButtonSide";
 import Link from "next/link";
-import { Menu } from "@/typings/types";
+import {
+  Addon,
+  AddonAddonCat,
+  AddonCategory,
+  Menu,
+  MenuCategory,
+  MenusAddonCat,
+  MenusMenuCat,
+} from "@/typings/types";
 import { useRouter } from "next/router";
 
 const style = {
@@ -28,18 +36,23 @@ const style = {
 };
 
 export default function Menus() {
-  const {
-    updateData,
-    menus,
-    locations,
-    menuCategories,
-    menusMenuCat,
-    menusAddonCat,
-    addonCategories,
-    addonAddonCat,
-    addons,
-    ...data
-  } = useContext(AppContext);
+  const { locations } = useContext(AppContext);
+
+  const [menus, setMenus] = useState<Menu[]>([]);
+  const [menuCategories, setMenuCategories] = useState<MenuCategory[]>([]);
+  const [addonCategories, setAddonCategories] = useState<AddonCategory[]>([]);
+  const [addons, setAddons] = useState<Addon[]>([]);
+  const [addonAddonCat, setAddonAddonCat] = useState<AddonAddonCat[]>([]);
+  const [menusAddonCat, setMenusAddonCat] = useState<MenusAddonCat[]>([]);
+  const [menusMenuCat, setMenusMenuCat] = useState<MenusMenuCat[]>([]);
+
+  console.log("menu", menus);
+  console.log("menu cat", menuCategories);
+  console.log("addon cat", addonCategories);
+  console.log("addons", addons);
+  console.log("addon addon cat", addonAddonCat);
+  console.log("menu addon cat", menusAddonCat);
+  console.log("menu menu cat", menusMenuCat);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -62,18 +75,14 @@ export default function Menus() {
           menusAddonCat,
           menusMenuCat,
         } = res.data;
-        updateData({
-          ...data,
-          updateData,
-          locations,
-          menus,
-          menuCategories,
-          addonCategories,
-          addons,
-          addonAddonCat,
-          menusAddonCat,
-          menusMenuCat,
-        });
+
+        setMenus(menus);
+        setMenuCategories(menuCategories);
+        setAddonCategories(addonCategories);
+        setAddons(addons);
+        setAddonAddonCat(addonAddonCat);
+        setMenusAddonCat(menusAddonCat);
+        setMenusMenuCat(menusMenuCat);
         return res;
       })
       .catch((err) => {
@@ -95,14 +104,12 @@ export default function Menus() {
 
   const menusCat = (id: number) => {
     const menuMenuCatIds = menusMenuCat
-      .filter((menuCat) => menuCat.id === id)
+      .filter((menuCat) => menuCat.menus_id === id)
       .map((menuCat) => menuCat.category_id);
 
     const menuCatNames = menuCategories
       .filter((menuCat) => menuMenuCatIds.includes(menuCat.id))
       .map((menuCat) => menuCat.category_name);
-
-    console.log("first", menuCatNames);
 
     return (
       <div>
